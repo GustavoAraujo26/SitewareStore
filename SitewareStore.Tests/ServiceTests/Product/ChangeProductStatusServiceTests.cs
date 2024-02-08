@@ -15,8 +15,8 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess_For_GetSave());
-            services.AddTransient(mock => RepositoryBaseMock.Build());
+            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess().Object);
+            services.AddTransient(mock => RepositoryBaseMock.Build().Object);
 
             var productService = services.GetService<IChangeProductStatusService>();
 
@@ -32,8 +32,8 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess_For_GetSave());
-            services.AddTransient(mock => RepositoryBaseMock.Build());
+            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess().Object);
+            services.AddTransient(mock => RepositoryBaseMock.Build().Object);
 
             var productService = services.GetService<IChangeProductStatusService>();
 
@@ -49,8 +49,8 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess_For_GetSave());
-            services.AddTransient(mock => RepositoryBaseMock.Build());
+            services.AddTransient(mock => ProductRepositoryMock.BuildSuccess().Object);
+            services.AddTransient(mock => RepositoryBaseMock.Build().Object);
 
             var productService = services.GetService<IChangeProductStatusService>();
 
@@ -66,8 +66,8 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildFailure_For_Get());
-            services.AddTransient(mock => RepositoryBaseMock.Build());
+            services.AddTransient(mock => ProductRepositoryMock.BuildFailure_For_Get().Object);
+            services.AddTransient(mock => RepositoryBaseMock.Build().Object);
 
             var productService = services.GetService<IChangeProductStatusService>();
 
@@ -83,8 +83,8 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildException_For_Get());
-            services.AddTransient(mock => RepositoryBaseMock.Build());
+            services.AddTransient(mock => ProductRepositoryMock.BuildException_For_Get().Object);
+            services.AddTransient(mock => RepositoryBaseMock.Build().Object);
 
             var productService = services.GetService<IChangeProductStatusService>();
 

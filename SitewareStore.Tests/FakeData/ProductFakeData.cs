@@ -88,6 +88,11 @@ namespace SitewareStore.Tests.FakeData
                     product = BuildEntity(PromotionType.PercentageDiscount);
                     promotionDescription = PromotionFakeData.GetPercentageDiscountDescription(product.PromotionApplied);
                 }
+                else
+                {
+                    product = BuildEntity();
+                    promotionDescription = null;
+                }
 
                 result.Add(new ProductListDTO(product.Id, product.Name, product.Price, product.Status.GetDescription(), 
                     promotionDescription, product.UpdatedAt.ToString()));

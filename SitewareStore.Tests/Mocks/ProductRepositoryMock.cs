@@ -7,16 +7,9 @@ using SitewareStore.Tests.FakeData;
 
 namespace SitewareStore.Tests.Mocks
 {
-    /// <summary>
-    /// Mock do repositório de produto
-    /// </summary>
     internal static class ProductRepositoryMock
     {
-        /// <summary>
-        /// Gera repositório para caso de sucesso ao buscar e salvar produto
-        /// </summary>
-        /// <returns></returns>
-        public static IProductRepository BuildSuccess_For_GetSave()
+        public static Mock<IProductRepository> BuildSuccess()
         {
             var mock = new Mock<IProductRepository>();
 
@@ -26,41 +19,49 @@ namespace SitewareStore.Tests.Mocks
             mock.Setup(x => x.Save(It.IsAny<SqlConnection>(), It.IsAny<Product>()))
                 .Returns(Task.CompletedTask);
 
-            return mock.Object;
+            mock.Setup(x => x.Delete(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
+                .Returns(Task.CompletedTask);
+
+            mock.Setup(x => x.ListActives(It.IsAny<SqlConnection>()))
+                .ReturnsAsync(ProductFakeData.BuildDtoList());
+
+            mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
+                .ReturnsAsync(ProductFakeData.BuildDtoList());
+
+            mock.Setup(x => x.ListNamesByPromotionId(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
+                .ReturnsAsync(ProductFakeData.BuildFakeProductNameList());
+
+            return mock;
         }
 
-        /// <summary>
-        /// Gera repositório para caso de retorno nulo do método GET
-        /// </summary>
-        /// <returns></returns>
-        public static IProductRepository BuildFailure_For_Get()
+        public static Mock<IProductRepository> BuildFailure_For_Get()
         {
-            var mock = new Mock<IProductRepository>();
+            var mock = BuildSuccess();
 
             mock.Setup(x => x.Get(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
                 .ReturnsAsync((Product)null);
 
-            mock.Setup(x => x.Save(It.IsAny<SqlConnection>(), It.IsAny<Product>()))
-                .Returns(Task.CompletedTask);
-
-            return mock.Object;
+            return mock;
         }
 
-        /// <summary>
-        /// Gera repositório para caso de falha do método GET
-        /// </summary>
-        /// <returns></returns>
-        public static IProductRepository BuildException_For_Get()
+        public static Mock<IProductRepository> BuildException_For_Get()
         {
-            var mock = new Mock<IProductRepository>();
+            var mock = BuildSuccess();
 
             mock.Setup(x => x.Get(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
                 .ThrowsAsync(new Exception("Fatal error"));
 
-            mock.Setup(x => x.Save(It.IsAny<SqlConnection>(), It.IsAny<Product>()))
-                .Returns(Task.CompletedTask);
+            return mock;
+        }
 
-            return mock.Object;
+        public static Mock<IProductRepository> BuildException_For_ListActives()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListActives(It.IsAny<SqlConnection>()))
+                .ThrowsAsync(new Exception("Fatal Error"));
+
+            return mock;
         }
     }
 }

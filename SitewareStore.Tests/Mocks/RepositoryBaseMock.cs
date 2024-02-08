@@ -14,19 +14,19 @@ namespace SitewareStore.Tests.Mocks
         /// Gera mock do repositório base
         /// </summary>
         /// <returns></returns>
-        public static IRepositoryBase Build()
+        public static Mock<IRepositoryBase> Build()
         {
             var mock = new Mock<IRepositoryBase>();
 
             mock.Setup(x => x.CreateDbConnection())
-                .Returns(new SqlConnection());
+                .Returns(It.IsAny<SqlConnection>());
 
             mock.Setup(x => x.CreateTransaction())
-                .Returns(new TransactionScope());
+                .Returns(It.IsAny<TransactionScope>());
 
             mock.Setup(x => x.CompleteTransaction(It.IsAny<TransactionScope>()));
 
-            return mock.Object;
+            return mock;
         }
     }
 }
