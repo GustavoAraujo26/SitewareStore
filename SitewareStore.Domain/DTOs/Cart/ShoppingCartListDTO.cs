@@ -21,7 +21,7 @@ namespace SitewareStore.Domain.DTOs.Cart
         /// <param name="discounts">Descontos</param>
         /// <param name="finalPrice">Preço final</param>
         /// <param name="changeAt">Data de criação/atualização</param>
-        public ShoppingCartListDTO(Guid id, StatusType status, decimal initialPrice, 
+        public ShoppingCartListDTO(Guid id, ShoppingCartStatus status, decimal initialPrice, 
             decimal discounts, decimal finalPrice, string changeAt)
         {
             Id = id;
@@ -40,7 +40,7 @@ namespace SitewareStore.Domain.DTOs.Cart
         /// <summary>
         /// Status
         /// </summary>
-        public StatusType Status { get; set; }
+        public ShoppingCartStatus Status { get; set; }
 
         /// <summary>
         /// Descrição do status
