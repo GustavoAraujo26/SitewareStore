@@ -19,6 +19,9 @@ namespace SitewareStore.Domain.Mappers.Profiles
 
             CreateMap<Product, ProductDTO>()
                 .ConvertUsing<ProductDtoTypeConverter>();
+
+            CreateMap<Promotion, PromotionDTO>()
+                .ConvertUsing<PromotionDtoTypeConverter>();
         }
     }
 }

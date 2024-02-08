@@ -46,5 +46,13 @@ namespace SitewareStore.Domain.Repositories
         /// <param name="db">Conexão com o banco de dados</param>
         /// <returns></returns>
         Task<List<ProductListDTO>> ListActives(SqlConnection db);
+
+        /// <summary>
+        /// Lista todos os nomes dos produtos vinculados à uma promoção
+        /// </summary>
+        /// <param name="db">Conexão com o banco de dados</param>
+        /// <param name="promotionId">Id da promoção</param>
+        /// <returns></returns>
+        Task<List<string>> ListNamesByPromotionId(SqlConnection db, Guid promotionId);
     }
 }

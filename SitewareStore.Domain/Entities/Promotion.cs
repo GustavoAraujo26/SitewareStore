@@ -127,15 +127,15 @@ namespace SitewareStore.Domain.Entities
         /// <summary>
         /// Atualiza dados básicos
         /// </summary>
-        /// <param name="description">Descrição</param>
+        /// <param name="observation">Descrição</param>
         /// <param name="type">Tipo de promoção</param>
         /// <param name="cutQuantity">Quantidade de corte</param>
         /// <param name="percentage">Porcentagem de desconto</param>
         /// <param name="price">Valor final</param>
-        public void UpdateBasicData(string description, PromotionType type, int? cutQuantity, 
+        public void UpdateBasicData(string observation, PromotionType type, int? cutQuantity, 
             decimal? percentage, decimal? price)
         {
-            Observation = description;
+            Observation = observation;
             Type = type;
             CutQuantity = cutQuantity;
             Percentage = percentage;

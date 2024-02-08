@@ -1,19 +1,36 @@
 ﻿using SitewareStore.Domain.DTOs.Promotion;
+using SitewareStore.Domain.Repositories;
 using SitewareStore.Domain.Services.Promotion;
 using SitewareStore.Infra.CrossCutting.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SitewareStore.Service.Contracts.Promotion
 {
     internal class ListPromotionService : IListPromotionService
     {
-        public Task<InternalResponse<PromotionListDTO>> Execute()
+        private readonly IPromotionRepository promotionRepository;
+        private readonly IRepositoryBase repositoryBase;
+
+        public ListPromotionService(IPromotionRepository promotionRepository, IRepositoryBase repositoryBase)
         {
-            throw new NotImplementedException();
+            this.promotionRepository = promotionRepository;
+            this.repositoryBase = repositoryBase;
+        }
+
+        public async Task<InternalResponse<PromotionListDTO>> Execute()
+        {
+            try
+            {
+                using (var db = repositoryBase.CreateDbConnection())
+                {
+                    var productList = await promotionRepository.ListAll(db);
+
+                    return InternalResponse<PromotionListDTO>.Success(productList);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalResponse<PromotionListDTO>.Error(ex);
+            }
         }
     }
 }

@@ -45,6 +45,9 @@ namespace SitewareStore.Infra.Data.Contracts
         public async Task<List<ProductListDTO>> ListAll(SqlConnection db) =>
             (await db.QueryAsync<ProductListDTO>(ProductSql.ListAll)).ToList();
 
+        public async Task<List<string>> ListNamesByPromotionId(SqlConnection db, Guid promotionId) =>
+            (await db.QueryAsync<string>(ProductSql.ListNamesByPromotion, new { promotionId })).ToList();
+
         public async Task Save(SqlConnection db, Product product)
         {
             var productModel = mapper.Map<ProductModel>(product);

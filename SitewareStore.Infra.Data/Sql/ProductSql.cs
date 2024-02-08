@@ -92,5 +92,14 @@
         FROM [SitewareStoreDB].[dbo].[Product] WITH(NOLOCK)
         WHERE [pk-product] = @id
         ";
+
+        /// <summary>
+        /// Lista os nomes de todos os produtos vinculados à uma promoção
+        /// </summary>
+        internal const string ListNamesByPromotion = @"
+        SELECT [name]
+          FROM [SitewareStoreDB].[dbo].[Product] WITH(NOLOCK)
+          WHERE [fk-promotion] = @promotionId
+        ";
     }
 }
