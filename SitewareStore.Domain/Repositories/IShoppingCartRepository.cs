@@ -30,6 +30,6 @@ namespace SitewareStore.Domain.Repositories
         /// </summary>
         /// <param name="db">Conexão com o banco de dados</param>
         /// <returns></returns>
-        Task<List<ShoppingCartDTO>> ListAll(SqlConnection db);
+        Task<List<ShoppingCartListDTO>> ListAll(SqlConnection db);
     }
 }

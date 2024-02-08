@@ -18,7 +18,7 @@ namespace SitewareStore.Domain.Mappers.Profiles
             CreateMap<PromotionModel, Promotion>()
                 .ConvertUsing<PromotionEntityTypeConverter>();
 
-            CreateMap<Tuple<ShoppingCartModel, List<ShoppingCartItemModel>>, ShoppingCart>()
+            CreateMap<Tuple<ShoppingCartModel, List<ShoppingCartItem>>, ShoppingCart>()
                 .ConvertUsing<ShoppingCartEntityTypeConverter>();
 
             CreateMap<Tuple<ShoppingCartItemModel, Product>, ShoppingCartItem>()

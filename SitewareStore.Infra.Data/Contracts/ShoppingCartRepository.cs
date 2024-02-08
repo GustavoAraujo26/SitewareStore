@@ -2,29 +2,54 @@
 using SitewareStore.Domain.DTOs.Cart;
 using SitewareStore.Domain.Entities;
 using SitewareStore.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dapper;
+using AutoMapper;
+using SitewareStore.Domain.Models;
+using SitewareStore.Infra.Data.Sql;
 
 namespace SitewareStore.Infra.Data.Contracts
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
-        public Task<ShoppingCart> Get(SqlConnection db, Guid id)
+        private readonly IShoppingCartItemRepository itemRepository;
+
+        private readonly IMapper mapper;
+
+        public ShoppingCartRepository(IShoppingCartItemRepository itemRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this.itemRepository = itemRepository;
+            this.mapper = mapper;
         }
 
-        public Task<List<ShoppingCartDTO>> ListAll(SqlConnection db)
+        public async Task<ShoppingCart> Get(SqlConnection db, Guid id)
         {
-            throw new NotImplementedException();
+            var cartModel = await db.QueryFirstOrDefaultAsync<ShoppingCartModel>(ShoppingCartSql.GetById, new { id });
+            if (cartModel is null)
+                return null;
+
+            var cartItemList = await itemRepository.ListItems(db, id);
+
+            var container = new Tuple<ShoppingCartModel, List<ShoppingCartItem>>(cartModel, cartItemList);
+
+            return mapper.Map<ShoppingCart>(container);
         }
 
-        public Task Save(SqlConnection db, ShoppingCart cart)
+        public async Task<List<ShoppingCartListDTO>> ListAll(SqlConnection db) =>
+            (await db.QueryAsync<ShoppingCartListDTO>(ShoppingCartSql.ListAll)).ToList();
+
+        public async Task Save(SqlConnection db, ShoppingCart cart)
         {
-            throw new NotImplementedException();
+            var cartModel = mapper.Map<ShoppingCartModel>(cart);
+            
+            var sql = ShoppingCartSql.Insert;
+
+            var currentId = await db.QueryFirstOrDefaultAsync<Guid?>(ShoppingCartSql.CheckIfExists, new { id = cart.Id });
+            if (currentId is not null && !currentId.Value.Equals(Guid.Empty))
+                sql = ShoppingCartSql.Update;
+
+            await db.ExecuteAsync(sql, cartModel);
+
+            await itemRepository.Save(db, cart.Id, cart.Items);
         }
     }
 }
