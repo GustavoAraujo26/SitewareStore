@@ -13,7 +13,7 @@ namespace SitewareStore.Domain.Mappers.TypeConverters.Models
             new PromotionModel
             {
                 Id = source.Id,
-                Description = source.Description,
+                Observation = source.Observation,
                 Type = (int)source.Type,
                 CutQuantity = source.CutQuantity,
                 Percentage = source.Percentage,

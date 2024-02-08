@@ -13,6 +13,8 @@ namespace SitewareStore.Domain.Validators
         /// </summary>
         public ShoppingCartItemRequestValidator()
         {
+            RuleFor(x => x.ShoppingCartId).NotEqual(Guid.Empty).WithMessage("È obrigatório informar o ID do carrinho de compras");
+
             RuleFor(x => x.ProductId).NotEqual(Guid.Empty).WithMessage("È obrigatório selecionar o produto");
 
             RuleFor(x => x.Quantity)

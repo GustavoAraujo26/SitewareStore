@@ -11,7 +11,7 @@ namespace SitewareStore.Domain.Entities
         /// Construtor para inicializar as propriedades
         /// </summary>
         /// <param name="id">Id</param>
-        /// <param name="description">Descrição</param>
+        /// <param name="observation">Observação</param>
         /// <param name="type">Tipo de promoção</param>
         /// <param name="cutQuantity">Quantidade de corte</param>
         /// <param name="percentage">Porcentagem de desconto</param>
@@ -19,11 +19,11 @@ namespace SitewareStore.Domain.Entities
         /// <param name="status">Status</param>
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
-        public Promotion(Guid id, string description, PromotionType type, int? cutQuantity, 
+        public Promotion(Guid id, string observation, PromotionType type, int? cutQuantity, 
             decimal? percentage, decimal? price, StatusType status, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
-            Description = description;
+            Observation = observation;
             Type = type;
             CutQuantity = cutQuantity;
             Percentage = percentage;
@@ -39,9 +39,9 @@ namespace SitewareStore.Domain.Entities
         public Guid Id { get; private set; }
 
         /// <summary>
-        /// Descrição
+        /// Observação
         /// </summary>
-        public string Description { get; private set; }
+        public string Observation { get; private set; }
 
         /// <summary>
         /// Tipo de promoção
@@ -135,7 +135,7 @@ namespace SitewareStore.Domain.Entities
         public void UpdateBasicData(string description, PromotionType type, int? cutQuantity, 
             decimal? percentage, decimal? price)
         {
-            Description = description;
+            Observation = description;
             Type = type;
             CutQuantity = cutQuantity;
             Percentage = percentage;

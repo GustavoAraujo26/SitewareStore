@@ -15,7 +15,7 @@ namespace SitewareStore.Domain.Requests
         /// <param name="shoppingCartId">Id do carrinho de compras</param>
         /// <param name="productId">Id do produto</param>
         /// <param name="quantity">Quantidade</param>
-        public SaveShoppingCartItemRequest(Guid? shoppingCartId, Guid productId, int quantity)
+        public SaveShoppingCartItemRequest(Guid shoppingCartId, Guid productId, int quantity)
         {
             ShoppingCartId = shoppingCartId;
             ProductId = productId;
@@ -25,7 +25,7 @@ namespace SitewareStore.Domain.Requests
         /// <summary>
         /// Id do carrinho de compras
         /// </summary>
-        public Guid? ShoppingCartId { get; set; }
+        public Guid ShoppingCartId { get; set; }
 
         /// <summary>
         /// Id do produto

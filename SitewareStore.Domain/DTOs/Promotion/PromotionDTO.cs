@@ -1,32 +1,29 @@
-﻿using FluentValidation;
-using SitewareStore.Domain.Enums;
-using SitewareStore.Domain.Validators;
-using SitewareStore.Infra.CrossCutting.Extensions;
-using SitewareStore.Infra.CrossCutting.Responses;
+﻿using SitewareStore.Domain.Enums;
 
-namespace SitewareStore.Domain.Requests
+namespace SitewareStore.Domain.DTOs.Promotion
 {
     /// <summary>
-    /// Requisição para persistência de promoção
+    /// DTO de promoção
     /// </summary>
-    public class SavePromotionRequest
+    public class PromotionDTO
     {
         /// <summary>
         /// Construtor vazio
         /// </summary>
-        public SavePromotionRequest() { }
+        public PromotionDTO() { }
 
         /// <summary>
         /// Construtor para inicializar as propriedades
         /// </summary>
         /// <param name="id">Id</param>
         /// <param name="observation">Observação</param>
-        /// <param name="type">Tipo de promoção</param>
+        /// <param name="type">Tipo</param>
         /// <param name="cutQuantity">Quantidade de corte</param>
         /// <param name="percentage">Porcentagem de desconto</param>
-        /// <param name="price">Valor final aplicado</param>
-        public SavePromotionRequest(Guid? id, string observation, PromotionType type, 
-            int? cutQuantity, decimal? percentage, decimal? price)
+        /// <param name="price">Valor final atribuido</param>
+        /// <param name="status">Status</param>
+        public PromotionDTO(Guid id, string observation, PromotionType type, int? cutQuantity, 
+            decimal? percentage, decimal? price, StatusType status)
         {
             Id = id;
             Observation = observation;
@@ -34,12 +31,13 @@ namespace SitewareStore.Domain.Requests
             CutQuantity = cutQuantity;
             Percentage = percentage;
             Price = price;
+            Status = status;
         }
 
         /// <summary>
         /// Id
         /// </summary>
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Observação
@@ -47,7 +45,7 @@ namespace SitewareStore.Domain.Requests
         public string Observation { get; set; }
 
         /// <summary>
-        /// Tipo de promoção
+        /// Tipo
         /// </summary>
         public PromotionType Type { get; set; }
 
@@ -62,15 +60,13 @@ namespace SitewareStore.Domain.Requests
         public decimal? Percentage { get; set; }
 
         /// <summary>
-        /// Valor final aplicado
+        /// Valor final atribuido
         /// </summary>
         public decimal? Price { get; set; }
 
         /// <summary>
-        /// Realiza validação das informações recebidas
+        /// Status
         /// </summary>
-        /// <returns>Container-resposta</returns>
-        public InternalResponse<SavePromotionRequest> Validate() =>
-            new PromotionRequestValidator().Validate(this).FormatResponse<SavePromotionRequest>();
+        public StatusType Status { get; set; }
     }
 }

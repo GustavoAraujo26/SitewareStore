@@ -14,7 +14,7 @@
         /// Construtor para inicializar as propriedades
         /// </summary>
         /// <param name="id">Id</param>
-        /// <param name="description">Descrição</param>
+        /// <param name="observation">Observação</param>
         /// <param name="type">Tipo de promoção</param>
         /// <param name="cutQuantity">Quantidade de corte</param>
         /// <param name="percentage">Porcentagem</param>
@@ -22,11 +22,11 @@
         /// <param name="status">Status</param>
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
-        public PromotionModel(Guid id, string description, int type, int? cutQuantity,
+        public PromotionModel(Guid id, string observation, int type, int? cutQuantity,
             decimal? percentage, decimal? price, int status, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
-            Description = description;
+            Observation = observation;
             Type = type;
             CutQuantity = cutQuantity;
             Percentage = percentage;
@@ -42,9 +42,9 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Descrição
+        /// Observação
         /// </summary>
-        public string Description { get; set; }
+        public string Observation { get; set; }
 
         /// <summary>
         /// Tipo de promoção

@@ -11,7 +11,7 @@ namespace SitewareStore.Domain.Mappers.TypeConverters.Entities
     internal class PromotionEntityTypeConverter : ITypeConverter<PromotionModel, Promotion>
     {
         public Promotion Convert(PromotionModel source, Promotion destination, ResolutionContext context) =>
-            new Promotion(source.Id, source.Description, (PromotionType)source.Type, source.CutQuantity, 
+            new Promotion(source.Id, source.Observation, (PromotionType)source.Type, source.CutQuantity, 
                 source.Percentage, source.Price, (StatusType)source.Status, source.CreatedAt, source.UpdatedAt);
     }
 }

@@ -14,10 +14,10 @@ namespace SitewareStore.Domain.Validators
         /// </summary>
         public PromotionRequestValidator()
         {
-            RuleFor(x => x.Description)
-                .NotNull().WithMessage("O nome do produto não pode ser nulo!")
-                .NotEmpty().WithMessage("O nome do produto não pode estar vazio!")
-                .MaximumLength(500).WithMessage("O nome do produto deve possuir no máximo {0} caracteres.");
+            RuleFor(x => x.Observation)
+                .NotNull().WithMessage("A observação da promoção não pode ser nulo!")
+                .NotEmpty().WithMessage("A observação da promoção não pode estar vazio!")
+                .MaximumLength(500).WithMessage("A observação da promoção deve possuir no máximo {0} caracteres.");
 
             RuleFor(x => x.Type).IsInEnum().WithMessage("O tipo de promoção selecionada não é válido.");
 
