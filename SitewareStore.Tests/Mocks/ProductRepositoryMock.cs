@@ -50,7 +50,7 @@ namespace SitewareStore.Tests.Mocks
         /// Gera repositório para caso de falha do método GET
         /// </summary>
         /// <returns></returns>
-        public static IProductRepository BuildException_For_GetSave()
+        public static IProductRepository BuildException_For_Get()
         {
             var mock = new Mock<IProductRepository>();
 

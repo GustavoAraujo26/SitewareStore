@@ -83,7 +83,7 @@ namespace SitewareStore.Tests.ServiceTests.Product
         {
             var services = ServiceCollectionBuilder.BuildServiceCollection();
 
-            services.AddTransient(mock => ProductRepositoryMock.BuildException_For_GetSave());
+            services.AddTransient(mock => ProductRepositoryMock.BuildException_For_Get());
             services.AddTransient(mock => RepositoryBaseMock.Build());
 
             var productService = services.GetService<IChangeProductStatusService>();
