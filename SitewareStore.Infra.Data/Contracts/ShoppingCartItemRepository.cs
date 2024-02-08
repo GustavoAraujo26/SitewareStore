@@ -11,22 +11,22 @@ namespace SitewareStore.Infra.Data.Contracts
 {
     public class ShoppingCartItemRepository : IShoppingCartItemRepository
     {
-        public Task Delete(SqlConnection db, Guid id)
+        public async Task Delete(SqlConnection db, Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ShoppingCartItem> Get(SqlConnection db, Guid id)
+        public async Task<ShoppingCartItem> Get(SqlConnection db, Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<ShoppingCartItem>> ListItems(SqlConnection db, Guid cartId)
+        public async Task<List<ShoppingCartItem>> ListItems(SqlConnection db, Guid cartId)
         {
             throw new NotImplementedException();
         }
 
-        public Task Save(SqlConnection db, Guid cartId, List<ShoppingCartItem> itemList)
+        public async Task Save(SqlConnection db, Guid cartId, List<ShoppingCartItem> itemList)
         {
             throw new NotImplementedException();
         }
