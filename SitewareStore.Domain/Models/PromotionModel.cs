@@ -23,7 +23,7 @@
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
         public PromotionModel(Guid id, string description, int type, int? cutQuantity, 
-            int? percentage, int? price, int? status, DateTime createdAt, DateTime updatedAt)
+            int? percentage, int? price, int status, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
             Description = description;
