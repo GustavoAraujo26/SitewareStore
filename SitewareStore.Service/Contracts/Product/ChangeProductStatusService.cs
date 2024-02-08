@@ -45,9 +45,11 @@ namespace SitewareStore.Service.Contracts.Product
 
                     await productRepository.Save(db, product);
 
+                    var dto = mapper.Map<ProductDTO>(product);
+
                     repositoryBase.CompleteTransaction(transaction);
 
-                    return InternalResponse<ProductDTO>.Success(mapper.Map<ProductDTO>(product));
+                    return InternalResponse<ProductDTO>.Success(dto);
                 }
             }
             catch(Exception ex)

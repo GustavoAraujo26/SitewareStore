@@ -1,20 +1,64 @@
-﻿using SitewareStore.Domain.DTOs.Product;
+﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
+using SitewareStore.Domain.DTOs.Product;
+using SitewareStore.Domain.Repositories;
 using SitewareStore.Domain.Requests;
 using SitewareStore.Domain.Services.Product;
 using SitewareStore.Infra.CrossCutting.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace SitewareStore.Service.Contracts.Product
 {
     internal class SaveProductService : ISaveProductService
     {
-        public Task<InternalResponse<ProductDTO>> Execute(SaveProductRequest request)
+        private readonly IProductRepository productRepository;
+        private readonly IRepositoryBase repositoryBase;
+
+        private readonly IMapper mapper;
+
+        public SaveProductService(IProductRepository productRepository, IRepositoryBase repositoryBase, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this.productRepository = productRepository;
+            this.repositoryBase = repositoryBase;
+            this.mapper = mapper;
+        }
+
+        public async Task<InternalResponse<ProductDTO>> Execute(SaveProductRequest request)
+        {
+            try
+            {
+                var validationResponse = request.Validate();
+                if (!validationResponse.IsSuccess())
+                    return InternalResponse<ProductDTO>.Copy(validationResponse);
+
+                using (var db = repositoryBase.CreateDbConnection())
+                using (var transaction = repositoryBase.CreateTransaction())
+                {
+                    var product = await BuildEntity(db, request);
+                    if (product is null)
+                        return InternalResponse<ProductDTO>.Custom(HttpStatusCode.NotFound, "Produto não encontrado.");
+
+                    await productRepository.Save(db, product);
+
+                    var dto = mapper.Map<ProductDTO>(product);
+
+                    repositoryBase.CompleteTransaction(transaction);
+
+                    return InternalResponse<ProductDTO>.Success(dto);
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalResponse<ProductDTO>.Error(ex);
+            }
+        }
+
+        private async Task<Domain.Entities.Product> BuildEntity(SqlConnection db, SaveProductRequest request)
+        {
+            if (request.Id is not null && !request.Id.Equals(Guid.Empty))
+                return await productRepository.Get(db, request.Id.Value);
+            else
+                return mapper.Map<Domain.Entities.Product>(request);
         }
     }
 }

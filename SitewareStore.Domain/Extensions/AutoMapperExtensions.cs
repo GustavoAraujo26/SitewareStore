@@ -14,7 +14,7 @@ namespace SitewareStore.Domain.Extensions
         /// <param name="services"></param>
         public static void ConfigureStoreAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(EntitiesProfile), typeof(ModelsProfile), typeof(DtosProfile));
+            services.AddAutoMapper(typeof(EntitiesProfile), typeof(ModelsProfile), typeof(DtosProfile), typeof(RequestsProfile));
         }
     }
 }
