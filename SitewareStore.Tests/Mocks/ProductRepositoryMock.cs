@@ -73,5 +73,15 @@ namespace SitewareStore.Tests.Mocks
 
             return mock;
         }
+
+        public static Mock<IProductRepository> BuildFailure_For_ListProductNames()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListNamesByPromotionId(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
+                .ReturnsAsync(new List<string>());
+
+            return mock;
+        }
     }
 }
