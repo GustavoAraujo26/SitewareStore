@@ -5,15 +5,8 @@ using System.Transactions;
 
 namespace SitewareStore.Tests.Mocks
 {
-    /// <summary>
-    /// Mock do repositório base
-    /// </summary>
     internal static class RepositoryBaseMock
     {
-        /// <summary>
-        /// Gera mock do repositório base
-        /// </summary>
-        /// <returns></returns>
         public static Mock<IRepositoryBase> Build()
         {
             var mock = new Mock<IRepositoryBase>();

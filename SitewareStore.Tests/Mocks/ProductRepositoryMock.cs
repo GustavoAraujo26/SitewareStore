@@ -63,5 +63,15 @@ namespace SitewareStore.Tests.Mocks
 
             return mock;
         }
+
+        public static Mock<IProductRepository> BuildException_For_ListAll()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
+                .ThrowsAsync(new Exception("Fatal Error"));
+
+            return mock;
+        }
     }
 }
