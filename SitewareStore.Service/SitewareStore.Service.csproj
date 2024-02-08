@@ -15,4 +15,8 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SitewareStore.Domain\SitewareStore.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

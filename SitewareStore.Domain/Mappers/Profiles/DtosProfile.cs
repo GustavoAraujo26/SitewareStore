@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using SitewareStore.Domain.DTOs.Product;
 using SitewareStore.Domain.DTOs.Promotion;
+using SitewareStore.Domain.Entities;
 using SitewareStore.Domain.Mappers.TypeConverters.DTOs;
 using SitewareStore.Domain.Models;
 
@@ -14,6 +16,9 @@ namespace SitewareStore.Domain.Mappers.Profiles
         {
             CreateMap<List<PromotionModel>, List<PromotionListDTO>>()
                 .ConvertUsing<PromotionListDtoTypeConverter>();
+
+            CreateMap<Product, ProductDTO>()
+                .ConvertUsing<ProductDtoTypeConverter>();
         }
     }
 }

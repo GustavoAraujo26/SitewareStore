@@ -96,5 +96,13 @@ namespace SitewareStore.Infra.CrossCutting.Responses
         /// <returns>Container-resposta</returns>
         public static InternalResponse<T> Error(Exception ex) =>
             new InternalResponse<T>(HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace, null, null);
+
+        /// <summary>
+        /// Realiza cópia de uma resposta original
+        /// </summary>
+        /// <param name="origin">Resposta original a ser copiada</param>
+        /// <returns></returns>
+        public static InternalResponse<T> Copy<Request>(InternalResponse<Request> origin) where Request : class =>
+            new InternalResponse<T>(origin.Status, origin.Message, origin.StackTrace, null, null);
     }
 }
