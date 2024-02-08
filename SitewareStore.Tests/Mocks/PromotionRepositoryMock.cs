@@ -49,5 +49,45 @@ namespace SitewareStore.Tests.Mocks
 
             return mock;
         }
+
+        public static Mock<IPromotionRepository> BuildFailure_For_ListActive()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListActives(It.IsAny<SqlConnection>()))
+                .ReturnsAsync(PromotionFakeData.BuildDtoList());
+
+            return mock;
+        }
+
+        public static Mock<IPromotionRepository> BuildFailure_For_ExceptionOnListActive()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListActives(It.IsAny<SqlConnection>()))
+                .ThrowsAsync(new Exception("Fatal error"));
+
+            return mock;
+        }
+
+        public static Mock<IPromotionRepository> BuildFailure_For_ListAll()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
+                .ReturnsAsync(PromotionFakeData.BuildDtoList());
+
+            return mock;
+        }
+
+        public static Mock<IPromotionRepository> BuildFailure_For_ExceptionOnListAll()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
+                .ThrowsAsync(new Exception("Fatal error"));
+
+            return mock;
+        }
     }
 }
