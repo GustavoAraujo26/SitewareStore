@@ -69,7 +69,7 @@
         /// <summary>
         /// Status
         /// </summary>
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// Data de criação

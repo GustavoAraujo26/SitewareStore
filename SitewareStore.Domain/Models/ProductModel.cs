@@ -45,7 +45,7 @@
         /// <summary>
         /// Preço
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Status
