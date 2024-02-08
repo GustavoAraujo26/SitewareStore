@@ -59,6 +59,9 @@ namespace SitewareStore.Service.Contracts.Promotion
             if (request.Id is not null && !request.Id.Equals(Guid.Empty))
             {
                 var promotionEntity = await promotionRepository.Get(db, request.Id.Value);
+                if (promotionEntity is null)
+                    return promotionEntity;
+
                 promotionEntity.UpdateBasicData(request.Observation, request.Type, request.CutQuantity, request.Percentage, request.Price);
 
                 return promotionEntity;
