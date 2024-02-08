@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SitewareStore.Service.Extensions;
 
 namespace SitewareStore.Tests
 {
@@ -11,13 +10,9 @@ namespace SitewareStore.Tests
         /// <summary>
         /// Configurando as injeções de dependência para os testes unitários
         /// </summary>
-        public IServiceCollection ConfigureServices()
+        public void ConfigureServices(IServiceCollection services)
         {
-            var services = new ServiceCollection();
-
-            services.ConfigureApplicationServices();
-
-            return services;
+            
         }
     }
 }

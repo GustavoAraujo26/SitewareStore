@@ -33,7 +33,7 @@ namespace SitewareStore.Tests.FakeData
         /// </summary>
         /// <param name="linkPromotion">Realiza vinculação com promoção?</param>
         /// <returns></returns>
-        public static Product BuildEntity(PromotionType? promotionType = null)
+        public static Product BuildEntity(PromotionType? promotionType = null, StatusType? status = null)
         {
             var faker = new Faker();
 
@@ -57,7 +57,7 @@ namespace SitewareStore.Tests.FakeData
             }
 
             return new Product(faker.Random.Guid(), faker.Commerce.ProductName(), 
-                faker.Random.Decimal(1, 100), StatusType.Active, promotion, DateTime.Now, DateTime.Now);
+                faker.Random.Decimal(1, 100), status ?? StatusType.Active, promotion, DateTime.Now, DateTime.Now);
         }
 
         /// <summary>
