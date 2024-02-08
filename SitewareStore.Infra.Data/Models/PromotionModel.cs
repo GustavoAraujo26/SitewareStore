@@ -1,4 +1,4 @@
-﻿namespace SitewareStore.Domain.Models
+﻿namespace SitewareStore.Infra.Data.Models
 {
     /// <summary>
     /// Modelo de banco de dados para promoção
@@ -22,7 +22,7 @@
         /// <param name="status">Status</param>
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
-        public PromotionModel(Guid id, string description, int type, int? cutQuantity, 
+        public PromotionModel(Guid id, string description, int type, int? cutQuantity,
             int? percentage, int? price, int status, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;

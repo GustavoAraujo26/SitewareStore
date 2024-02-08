@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SitewareStore.Domain.Models
+﻿namespace SitewareStore.Infra.Data.Models
 {
     /// <summary>
     /// Modelo de banco de dados para carrinho de compras
@@ -26,7 +20,7 @@ namespace SitewareStore.Domain.Models
         /// <param name="finalPrice">Preço final</param>
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de alteração</param>
-        public ShoppingCartModel(Guid id, int status, decimal initialPrice, decimal discounts, 
+        public ShoppingCartModel(Guid id, int status, decimal initialPrice, decimal discounts,
             decimal finalPrice, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;

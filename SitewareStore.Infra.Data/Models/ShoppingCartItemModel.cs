@@ -1,4 +1,4 @@
-﻿namespace SitewareStore.Domain.Models
+﻿namespace SitewareStore.Infra.Data.Models
 {
     /// <summary>
     /// Modelo de banco de dados para item do carrinho de compras
@@ -22,7 +22,7 @@
         /// <param name="discount">Desconto</param>
         /// <param name="finalPrice">Preço final</param>
         /// <param name="promotionApplied">Promoção aplicada</param>
-        public ShoppingCartItemModel(Guid id, Guid shoppingCartId, Guid productId, string productName, int quantity, 
+        public ShoppingCartItemModel(Guid id, Guid shoppingCartId, Guid productId, string productName, int quantity,
             decimal initialPrice, decimal discount, decimal finalPrice, string promotionApplied)
         {
             Id = id;
