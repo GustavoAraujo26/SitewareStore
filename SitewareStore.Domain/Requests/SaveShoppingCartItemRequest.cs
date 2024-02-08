@@ -1,4 +1,8 @@
-﻿namespace SitewareStore.Domain.Requests
+﻿using SitewareStore.Domain.Validators;
+using SitewareStore.Infra.CrossCutting.Extensions;
+using SitewareStore.Infra.CrossCutting.Responses;
+
+namespace SitewareStore.Domain.Requests
 {
     /// <summary>
     /// Requisição para adicionar item ao carrinho
@@ -32,5 +36,12 @@
         /// Quantidade
         /// </summary>
         public int Quantity { get; set; }
+
+        /// <summary>
+        /// Realiza validação das informações recebidas
+        /// </summary>
+        /// <returns>Container-resposta</returns>
+        public InternalResponse<SaveShoppingCartItemRequest> Validate() =>
+            new ShoppingCartItemRequestValidator().Validate(this).FormatResponse<SaveShoppingCartItemRequest>();
     }
 }

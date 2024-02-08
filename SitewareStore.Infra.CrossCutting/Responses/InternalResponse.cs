@@ -1,6 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SitewareStore.Domain.Responses
+namespace SitewareStore.Infra.CrossCutting.Responses
 {
     /// <summary>
     /// Resposta interna do sistema
@@ -16,7 +21,7 @@ namespace SitewareStore.Domain.Responses
         /// <param name="stackTrace">Caminho percorrido</param>
         /// <param name="single">Objeto único a ser retornado</param>
         /// <param name="list">Lista de objetos</param>
-        public InternalResponse(HttpStatusCode status, string? message, 
+        public InternalResponse(HttpStatusCode status, string? message,
             string? stackTrace, T? single, List<T>? list)
         {
             Status = status;

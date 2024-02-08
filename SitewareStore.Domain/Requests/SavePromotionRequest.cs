@@ -1,4 +1,8 @@
-﻿using SitewareStore.Domain.Enums;
+﻿using FluentValidation;
+using SitewareStore.Domain.Enums;
+using SitewareStore.Domain.Validators;
+using SitewareStore.Infra.CrossCutting.Extensions;
+using SitewareStore.Infra.CrossCutting.Responses;
 
 namespace SitewareStore.Domain.Requests
 {
@@ -61,5 +65,12 @@ namespace SitewareStore.Domain.Requests
         /// Valor final aplicado
         /// </summary>
         public decimal? Price { get; set; }
+
+        /// <summary>
+        /// Realiza validação das informações recebidas
+        /// </summary>
+        /// <returns>Container-resposta</returns>
+        public InternalResponse<SavePromotionRequest> Validate() =>
+            new PromotionRequestValidator().Validate(this).FormatResponse<SavePromotionRequest>();
     }
 }

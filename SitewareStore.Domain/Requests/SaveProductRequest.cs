@@ -1,4 +1,9 @@
-﻿namespace SitewareStore.Domain.Requests
+﻿using SitewareStore.Domain.Validators;
+using SitewareStore.Infra.CrossCutting.Extensions;
+using SitewareStore.Infra.CrossCutting.Responses;
+using System.Net;
+
+namespace SitewareStore.Domain.Requests
 {
     /// <summary>
     /// Requisição de persistência de produto
@@ -44,5 +49,12 @@
         /// Id da promoção
         /// </summary>
         public Guid? PromotionId { get; set; }
+
+        /// <summary>
+        /// Realiza validação das informações recebidas
+        /// </summary>
+        /// <returns>Container-resposta</returns>
+        public InternalResponse<SaveProductRequest> Validate() =>
+            new ProductRequestValidator().Validate(this).FormatResponse<SaveProductRequest>();
     }
 }
