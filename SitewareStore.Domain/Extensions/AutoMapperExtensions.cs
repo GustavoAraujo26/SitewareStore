@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SitewareStore.Domain.Mappers.Profiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SitewareStore.Domain.Extensions
 {
@@ -19,7 +14,7 @@ namespace SitewareStore.Domain.Extensions
         /// <param name="services"></param>
         public static void ConfigureStoreAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(EntitiesProfile), typeof(ModelsProfile));
+            services.AddAutoMapper(typeof(EntitiesProfile), typeof(ModelsProfile), typeof(DtosProfile));
         }
     }
 }
