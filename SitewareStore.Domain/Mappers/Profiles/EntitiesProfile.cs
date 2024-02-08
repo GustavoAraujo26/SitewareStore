@@ -12,7 +12,7 @@ namespace SitewareStore.Domain.Mappers.Profiles
     {
         public EntitiesProfile()
         {
-            CreateMap<Tuple<ProductModel, PromotionModel>, Product>()
+            CreateMap<Tuple<ProductModel, Promotion>, Product>()
                 .ConvertUsing<ProductEntityTypeConverter>();
 
             CreateMap<PromotionModel, Promotion>()
@@ -21,7 +21,7 @@ namespace SitewareStore.Domain.Mappers.Profiles
             CreateMap<Tuple<ShoppingCartModel, List<ShoppingCartItemModel>>, ShoppingCart>()
                 .ConvertUsing<ShoppingCartEntityTypeConverter>();
 
-            CreateMap<Tuple<ShoppingCartItemModel, ProductModel, PromotionModel>, ShoppingCartItem>()
+            CreateMap<Tuple<ShoppingCartItemModel, Product>, ShoppingCartItem>()
                 .ConvertUsing<ShoppingCartItemEntityTypeConverter>();
         }
     }

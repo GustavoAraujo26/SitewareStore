@@ -19,7 +19,7 @@ namespace SitewareStore.Domain.Mappers.Profiles
             CreateMap<Promotion, PromotionModel>()
                 .ConvertUsing<PromotionModelTypeConverter>();
 
-            CreateMap<ShoppingCart, List<ShoppingCartItemModel>>()
+            CreateMap<Tuple<Guid, List<ShoppingCartItem>>, List<ShoppingCartItemModel>>()
                 .ConvertUsing<ShoppingCartItemModelTypeConverter>();
 
             CreateMap<ShoppingCart, ShoppingCartModel>()

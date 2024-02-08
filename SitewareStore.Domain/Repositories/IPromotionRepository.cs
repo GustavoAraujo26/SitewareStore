@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using SitewareStore.Domain.DTOs.Promotion;
 using SitewareStore.Domain.Entities;
+using SitewareStore.Domain.Models;
 
 namespace SitewareStore.Domain.Repositories
 {

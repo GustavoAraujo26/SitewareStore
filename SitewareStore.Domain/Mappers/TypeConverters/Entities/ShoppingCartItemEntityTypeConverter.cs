@@ -8,15 +8,12 @@ namespace SitewareStore.Domain.Mappers.TypeConverters.Entities
     /// Conversor do modelo de banco de dados de "item do carrinho" para entidade
     /// </summary>
     internal class ShoppingCartItemEntityTypeConverter : 
-        ITypeConverter<Tuple<ShoppingCartItemModel, ProductModel, PromotionModel>, ShoppingCartItem>
+        ITypeConverter<Tuple<ShoppingCartItemModel, Product>, ShoppingCartItem>
     {
-        public ShoppingCartItem Convert(Tuple<ShoppingCartItemModel, ProductModel, PromotionModel> source, ShoppingCartItem destination, ResolutionContext context)
+        public ShoppingCartItem Convert(Tuple<ShoppingCartItemModel, Product> source, ShoppingCartItem destination, ResolutionContext context)
         {
             var cartItemModel = source.Item1;
-            var productModel = source.Item2;
-            var promotionModel = source.Item3;
-
-            var productEntity = context.Mapper.Map<Product>(new Tuple<ProductModel, PromotionModel>(productModel, promotionModel));
+            var productEntity = source.Item2;
 
             return new ShoppingCartItem(cartItemModel.Id, productEntity, cartItemModel.Quantity);
         }

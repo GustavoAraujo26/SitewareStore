@@ -18,7 +18,7 @@ namespace SitewareStore.Domain.Entities
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
         public Product(Guid id, string name, decimal price, StatusType status, 
-            Promotion promotionApplied, DateTime createdAt, DateTime updatedAt)
+            Promotion? promotionApplied, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
             Name = name;

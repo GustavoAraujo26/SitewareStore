@@ -57,6 +57,12 @@
         /// </summary>
         private void CalculateFinalPrice()
         {
+            if (Product is null)
+            {
+                FinalPrice = 0;
+                return;
+            }
+
             if (Product.PromotionApplied is null)
             {
                 FinalPrice = Decimal.Round(Quantity * Product.Price, 2);

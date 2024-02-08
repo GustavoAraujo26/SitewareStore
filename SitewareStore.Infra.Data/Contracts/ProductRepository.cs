@@ -11,10 +11,13 @@ namespace SitewareStore.Infra.Data.Contracts
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly IPromotionRepository promotionRepository;
+
         private readonly IMapper mapper;
 
-        public ProductRepository(IMapper mapper)
+        public ProductRepository(IPromotionRepository promotionRepository, IMapper mapper)
         {
+            this.promotionRepository = promotionRepository;
             this.mapper = mapper;
         }
 
@@ -23,11 +26,17 @@ namespace SitewareStore.Infra.Data.Contracts
 
         public async Task<Product> Get(SqlConnection db, Guid id)
         {
-            var model = await db.QueryFirstOrDefaultAsync<ProductModel>(ProductSql.GetById, new { id });
-            if (model is null)
+            var productModel = await db.QueryFirstOrDefaultAsync<ProductModel>(ProductSql.GetById, new { id });
+            if (productModel is null)
                 return null;
 
-            return mapper.Map<Product>(model);
+            Promotion promotionEntity = null;
+            if (productModel.PromotionId.HasValue && !productModel.PromotionId.Value.Equals(Guid.Empty))
+                promotionEntity = await promotionRepository.Get(db, productModel.PromotionId.Value);
+
+            var container = new Tuple<ProductModel, Promotion>(productModel, promotionEntity);
+
+            return mapper.Map<Product>(container);
         }
 
         public async Task<List<ProductListDTO>> ListActives(SqlConnection db) =>
