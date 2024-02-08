@@ -7,7 +7,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Product
 {
-    internal class GetProductService : IGetProductService
+    public class GetProductService : IGetProductService
     {
         private readonly IProductRepository productRepository;
         private readonly IRepositoryBase repositoryBase;

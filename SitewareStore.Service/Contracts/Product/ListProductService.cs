@@ -5,7 +5,7 @@ using SitewareStore.Infra.CrossCutting.Responses;
 
 namespace SitewareStore.Service.Contracts.Product
 {
-    internal class ListProductService : IListProductService
+    public class ListProductService : IListProductService
     {
         private readonly IProductRepository productRepository;
         private readonly IRepositoryBase repositoryBase;

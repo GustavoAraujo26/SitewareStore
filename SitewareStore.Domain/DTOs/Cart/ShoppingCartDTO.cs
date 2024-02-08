@@ -19,7 +19,7 @@ namespace SitewareStore.Domain.DTOs.Cart
         /// <param name="status">Status</param>
         /// <param name="changeAt">Data de criação/atualização</param>
         /// <param name="items">Lista de itens do carrinho de compras</param>
-        public ShoppingCartDTO(Guid id, StatusType status, DateTime changeAt, List<ShoppingCartItemDTO> items)
+        public ShoppingCartDTO(Guid id, ShoppingCartStatus status, DateTime changeAt, List<ShoppingCartItemDTO> items)
         {
             Id = id;
             Status = status;
@@ -35,7 +35,7 @@ namespace SitewareStore.Domain.DTOs.Cart
         /// <summary>
         /// Status
         /// </summary>
-        public StatusType Status { get; set; }
+        public ShoppingCartStatus Status { get; set; }
 
         /// <summary>
         /// Data de criação/atualização
@@ -46,5 +46,47 @@ namespace SitewareStore.Domain.DTOs.Cart
         /// Lista de itens do carrinho de compras
         /// </summary>
         public List<ShoppingCartItemDTO> Items { get; set; }
+
+        /// <summary>
+        /// Preço inicial
+        /// </summary>
+        public decimal InitialPrice
+        {
+            get
+            {
+                if (Items is null || !Items.Any())
+                    return 0;
+
+                return Items.Sum(x => decimal.Round(x.Quantity * x.InitialPrice, 2));
+            }
+        }
+
+        /// <summary>
+        /// Descontos
+        /// </summary>
+        public decimal Discounts
+        {
+            get
+            {
+                if (Items is null || !Items.Any())
+                    return 0;
+
+                return InitialPrice - FinalPrice;
+            }
+        }
+
+        /// <summary>
+        /// Preço final
+        /// </summary>
+        public decimal FinalPrice
+        {
+            get
+            {
+                if (Items is null || !Items.Any())
+                    return 0;
+
+                return Items.Sum(x => x.FinalPrice);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SitewareStore.Domain.DTOs.Cart;
 using SitewareStore.Domain.DTOs.Product;
 using SitewareStore.Domain.DTOs.Promotion;
 using SitewareStore.Domain.Entities;
@@ -22,6 +23,12 @@ namespace SitewareStore.Domain.Mappers.Profiles
 
             CreateMap<Promotion, PromotionDTO>()
                 .ConvertUsing<PromotionDtoTypeConverter>();
+
+            CreateMap<ShoppingCart, List<ShoppingCartItemDTO>>()
+                .ConvertUsing<ShoppingCartItemDtoTypeConverter>();
+
+            CreateMap<ShoppingCart, ShoppingCartDTO>()
+                .ConvertUsing<ShoppingCartDtoTypeConverter>();
         }
     }
 }

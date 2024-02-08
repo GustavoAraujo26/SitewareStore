@@ -8,7 +8,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Promotion
 {
-    internal class DeletePromotionService : IDeletePromotionService
+    public class DeletePromotionService : IDeletePromotionService
     {
         private readonly IPromotionRepository promotionRepository;
         private readonly IProductRepository productRepository;

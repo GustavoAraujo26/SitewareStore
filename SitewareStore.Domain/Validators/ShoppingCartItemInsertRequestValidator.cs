@@ -4,14 +4,14 @@ using SitewareStore.Domain.Requests;
 namespace SitewareStore.Domain.Validators
 {
     /// <summary>
-    /// Validador da requisição de persistência de item do carrinho de compras
+    /// Validador da requisição de inserção de item no carrinho de compras
     /// </summary>
-    internal class ShoppingCartItemRequestValidator : AbstractValidator<SaveShoppingCartItemRequest>
+    internal class ShoppingCartItemInsertRequestValidator : AbstractValidator<AddShoppingCartItemRequest>
     {
         /// <summary>
         /// Construtor para inicializar o validador
         /// </summary>
-        public ShoppingCartItemRequestValidator()
+        public ShoppingCartItemInsertRequestValidator()
         {
             RuleFor(x => x.ShoppingCartId).NotEqual(Guid.Empty).WithMessage("È obrigatório informar o ID do carrinho de compras");
 

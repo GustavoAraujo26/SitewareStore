@@ -7,7 +7,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Promotion
 {
-    internal class GetPromotionService : IGetPromotionService
+    public class GetPromotionService : IGetPromotionService
     {
         private readonly IPromotionRepository promotionRepository;
         private readonly IRepositoryBase repositoryBase;
@@ -32,7 +32,7 @@ namespace SitewareStore.Service.Contracts.Promotion
                 {
                     var currentPromotion = await promotionRepository.Get(db, id);
                     if (currentPromotion is null)
-                        return InternalResponse<PromotionDTO>.Custom(HttpStatusCode.NotFound, "Produto não encontrado.");
+                        return InternalResponse<PromotionDTO>.Custom(HttpStatusCode.NotFound, "Promoção não encontrado.");
 
                     var dto = mapper.Map<PromotionDTO>(currentPromotion);
 

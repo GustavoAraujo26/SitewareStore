@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SitewareStore.Domain.DTOs.Cart;
+using SitewareStore.Domain.Entities;
 using SitewareStore.Domain.Repositories;
 using SitewareStore.Domain.Requests;
 using SitewareStore.Domain.Services.ShoppingCart;
@@ -8,24 +9,24 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.ShoppingCart
 {
-    public class DeleteShoppingCartItemService : IDeleteShoppingCartItemService
+    public class AddShoppingCartItemService : IAddShoppingCartItemService
     {
         private readonly IShoppingCartRepository cartRepository;
-        private readonly IShoppingCartItemRepository cartItemRepository;
+        private readonly IProductRepository productRepository;
         private readonly IRepositoryBase repositoryBase;
 
         private readonly IMapper mapper;
 
-        public DeleteShoppingCartItemService(IShoppingCartRepository cartRepository, 
-            IShoppingCartItemRepository cartItemRepository, IRepositoryBase repositoryBase, IMapper mapper)
+        public AddShoppingCartItemService(IShoppingCartRepository cartRepository, 
+            IProductRepository productRepository, IRepositoryBase repositoryBase, IMapper mapper)
         {
             this.cartRepository = cartRepository;
-            this.cartItemRepository = cartItemRepository;
+            this.productRepository = productRepository;
             this.repositoryBase = repositoryBase;
             this.mapper = mapper;
         }
 
-        public async Task<InternalResponse<ShoppingCartDTO>> Execute(DeleteShoppingCartItemRequest request)
+        public async Task<InternalResponse<ShoppingCartDTO>> Execute(AddShoppingCartItemRequest request)
         {
             try
             {
@@ -36,17 +37,20 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
                 using (var db = repositoryBase.CreateDbConnection())
                 using (var transaction = repositoryBase.CreateTransaction())
                 {
-                    var cart = await cartRepository.Get(db, request.CartId);
+                    var cart = await cartRepository.Get(db, request.ShoppingCartId);
                     if (cart is null)
                         return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o carrinho de compras.");
 
-                    var cartItem = await cartItemRepository.Get(db, request.CartItemId);
-                    if (cartItem is null)
-                        return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o item do carrinho de compras.");
+                    var product = await productRepository.Get(db, request.ProductId);
+                    if (product is null)
+                        return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o produto.");
 
-                    await cartItemRepository.Delete(db, request.CartItemId);
+                    var container = new Tuple<AddShoppingCartItemRequest, Domain.Entities.Product>(request, product);
 
-                    cart.RemoveItem(request.CartItemId);
+                    var cartItem = mapper.Map<ShoppingCartItem>(container);
+                    cart.AddItem(cartItem);
+
+                    await cartRepository.Save(db, cart);
 
                     var dto = mapper.Map<ShoppingCartDTO>(cart);
 
@@ -55,7 +59,7 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
                     return InternalResponse<ShoppingCartDTO>.Success(dto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return InternalResponse<ShoppingCartDTO>.Error(ex);
             }

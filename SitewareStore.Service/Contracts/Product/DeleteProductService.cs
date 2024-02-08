@@ -7,7 +7,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Product
 {
-    internal class DeleteProductService : IDeleteProductService
+    public class DeleteProductService : IDeleteProductService
     {
         private readonly IProductRepository productRepository;
         private readonly IRepositoryBase repositoryBase;

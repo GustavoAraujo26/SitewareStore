@@ -17,6 +17,9 @@ namespace SitewareStore.Domain.Mappers.Profiles
 
             CreateMap<SavePromotionRequest, Promotion>()
                 .ConvertUsing<PromotionRequestTypeConverter>();
+
+            CreateMap<Tuple<AddShoppingCartItemRequest, Product>, ShoppingCartItem>()
+                .ConvertUsing<ShoppingCartItemInsertRequestTypeConverter>();
         }
     }
 }

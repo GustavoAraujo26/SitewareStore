@@ -9,7 +9,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Promotion
 {
-    internal class ChangePromotionStatusService : IChangePromotionStatusService
+    public class ChangePromotionStatusService : IChangePromotionStatusService
     {
         private readonly IPromotionRepository promotionRepository;
         private readonly IRepositoryBase repositoryBase;

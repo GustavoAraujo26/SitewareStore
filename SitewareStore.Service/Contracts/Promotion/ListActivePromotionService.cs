@@ -6,7 +6,7 @@ using SitewareStore.Infra.CrossCutting.Responses;
 
 namespace SitewareStore.Service.Contracts.Promotion
 {
-    internal class ListActivePromotionService : IListActivePromotionService
+    public class ListActivePromotionService : IListActivePromotionService
     {
         private readonly IPromotionRepository promotionRepository;
         private readonly IRepositoryBase repositoryBase;

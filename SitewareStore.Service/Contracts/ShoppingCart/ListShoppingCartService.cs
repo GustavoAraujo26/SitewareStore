@@ -1,19 +1,40 @@
-﻿using SitewareStore.Domain.DTOs.Cart;
+﻿using AutoMapper;
+using SitewareStore.Domain.DTOs.Cart;
+using SitewareStore.Domain.Repositories;
 using SitewareStore.Domain.Services.ShoppingCart;
 using SitewareStore.Infra.CrossCutting.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SitewareStore.Service.Contracts.ShoppingCart
 {
-    internal class ListShoppingCartService : IListShoppingCartService
+    public class ListShoppingCartService : IListShoppingCartService
     {
-        public Task<InternalResponse<ShoppingCartListDTO>> Execute()
+        private readonly IShoppingCartRepository cartRepository;
+        private readonly IRepositoryBase repositoryBase;
+
+        private readonly IMapper mapper;
+
+        public ListShoppingCartService(IShoppingCartRepository cartRepository, IRepositoryBase repositoryBase, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this.cartRepository = cartRepository;
+            this.repositoryBase = repositoryBase;
+            this.mapper = mapper;
+        }
+
+        public async Task<InternalResponse<ShoppingCartListDTO>> Execute()
+        {
+            try
+            {
+                using (var db = repositoryBase.CreateDbConnection())
+                {
+                    var cartList = await cartRepository.ListAll(db);
+
+                    return InternalResponse<ShoppingCartListDTO>.Success(cartList);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalResponse<ShoppingCartListDTO>.Error(ex);
+            }
         }
     }
 }

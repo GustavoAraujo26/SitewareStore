@@ -122,16 +122,6 @@ namespace SitewareStore.Domain.Entities
         /// Remove item do carrinho
         /// </summary>
         /// <param name="item">Item do carrinho</param>
-        public void RemoveItem(ShoppingCartItem item)
-        {
-            Items.Remove(item);
-            UpdatedAt = DateTime.Now;
-        }
-
-        /// <summary>
-        /// Remove item do carrinho
-        /// </summary>
-        /// <param name="item">Item do carrinho</param>
         public void RemoveItem(Guid itemId)
         {
             var currentItem = Items.FirstOrDefault(x => x.Id.Equals(itemId));
@@ -139,6 +129,23 @@ namespace SitewareStore.Domain.Entities
                 return;
 
             Items.Remove(currentItem);
+            UpdatedAt = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Atualiza a quantidade comprada de um item do carrinho
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="quantity"></param>
+        public void UpdateItemQuantity(Guid itemId, int quantity)
+        {
+            var currentItem = Items.FirstOrDefault(x => x.Id.Equals(itemId));
+            if (currentItem == null)
+                return;
+
+            var index = Items.IndexOf(currentItem);
+            Items[index].UpdateQuantity(quantity);
+
             UpdatedAt = DateTime.Now;
         }
 

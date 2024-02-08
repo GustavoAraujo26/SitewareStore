@@ -5,20 +5,25 @@ using SitewareStore.Infra.CrossCutting.Responses;
 namespace SitewareStore.Domain.Requests
 {
     /// <summary>
-    /// Requisição para adicionar item ao carrinho
+    /// Requisição de atualização de item do carrinho de compras
     /// </summary>
-    public class SaveShoppingCartItemRequest
+    public class UpdateShoppingCartItemRequest
     {
+        /// <summary>
+        /// Construtor vazio
+        /// </summary>
+        public UpdateShoppingCartItemRequest() { }
+
         /// <summary>
         /// Construtor para inicializar as propriedades
         /// </summary>
         /// <param name="shoppingCartId">Id do carrinho de compras</param>
-        /// <param name="productId">Id do produto</param>
+        /// <param name="shoppingCartItemId">Id do item do carrinho de compras</param>
         /// <param name="quantity">Quantidade</param>
-        public SaveShoppingCartItemRequest(Guid shoppingCartId, Guid productId, int quantity)
+        public UpdateShoppingCartItemRequest(Guid shoppingCartId, Guid shoppingCartItemId, int quantity)
         {
             ShoppingCartId = shoppingCartId;
-            ProductId = productId;
+            ShoppingCartItemId = shoppingCartItemId;
             Quantity = quantity;
         }
 
@@ -28,9 +33,9 @@ namespace SitewareStore.Domain.Requests
         public Guid ShoppingCartId { get; set; }
 
         /// <summary>
-        /// Id do produto
+        /// Id do item do carrinho de compras
         /// </summary>
-        public Guid ProductId { get; set; }
+        public Guid ShoppingCartItemId { get; set; }
 
         /// <summary>
         /// Quantidade
@@ -41,7 +46,7 @@ namespace SitewareStore.Domain.Requests
         /// Realiza validação das informações recebidas
         /// </summary>
         /// <returns>Container-resposta</returns>
-        public InternalResponse<SaveShoppingCartItemRequest> Validate() =>
-            new ShoppingCartItemRequestValidator().Validate(this).FormatResponse<SaveShoppingCartItemRequest>();
+        public InternalResponse<UpdateShoppingCartItemRequest> Validate() =>
+            new ShoppingCartItemUpdateRequestValidator().Validate(this).FormatResponse<UpdateShoppingCartItemRequest>();
     }
 }

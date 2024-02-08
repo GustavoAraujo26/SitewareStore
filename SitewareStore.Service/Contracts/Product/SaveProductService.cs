@@ -10,7 +10,7 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.Product
 {
-    internal class SaveProductService : ISaveProductService
+    public class SaveProductService : ISaveProductService
     {
         private readonly IProductRepository productRepository;
         private readonly IPromotionRepository promotionRepository;

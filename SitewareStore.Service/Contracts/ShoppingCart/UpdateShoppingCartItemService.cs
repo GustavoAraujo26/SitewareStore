@@ -8,24 +8,21 @@ using System.Net;
 
 namespace SitewareStore.Service.Contracts.ShoppingCart
 {
-    public class DeleteShoppingCartItemService : IDeleteShoppingCartItemService
+    public class UpdateShoppingCartItemService : IUpdateShoppingCartItemService
     {
         private readonly IShoppingCartRepository cartRepository;
-        private readonly IShoppingCartItemRepository cartItemRepository;
         private readonly IRepositoryBase repositoryBase;
 
         private readonly IMapper mapper;
 
-        public DeleteShoppingCartItemService(IShoppingCartRepository cartRepository, 
-            IShoppingCartItemRepository cartItemRepository, IRepositoryBase repositoryBase, IMapper mapper)
+        public UpdateShoppingCartItemService(IShoppingCartRepository cartRepository, IRepositoryBase repositoryBase, IMapper mapper)
         {
             this.cartRepository = cartRepository;
-            this.cartItemRepository = cartItemRepository;
             this.repositoryBase = repositoryBase;
             this.mapper = mapper;
         }
 
-        public async Task<InternalResponse<ShoppingCartDTO>> Execute(DeleteShoppingCartItemRequest request)
+        public async Task<InternalResponse<ShoppingCartDTO>> Execute(UpdateShoppingCartItemRequest request)
         {
             try
             {
@@ -36,17 +33,15 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
                 using (var db = repositoryBase.CreateDbConnection())
                 using (var transaction = repositoryBase.CreateTransaction())
                 {
-                    var cart = await cartRepository.Get(db, request.CartId);
+                    var cart = await cartRepository.Get(db, request.ShoppingCartId);
                     if (cart is null)
                         return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o carrinho de compras.");
 
-                    var cartItem = await cartItemRepository.Get(db, request.CartItemId);
-                    if (cartItem is null)
-                        return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o item do carrinho de compras.");
+                    var managementResponse = ManageItems(cart, request);
+                    if (!managementResponse.IsSuccess())
+                        return managementResponse;
 
-                    await cartItemRepository.Delete(db, request.CartItemId);
-
-                    cart.RemoveItem(request.CartItemId);
+                    await cartRepository.Save(db, cart);
 
                     var dto = mapper.Map<ShoppingCartDTO>(cart);
 
@@ -55,10 +50,24 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
                     return InternalResponse<ShoppingCartDTO>.Success(dto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return InternalResponse<ShoppingCartDTO>.Error(ex);
             }
+        }
+
+        private InternalResponse<ShoppingCartDTO> ManageItems(Domain.Entities.ShoppingCart cart, UpdateShoppingCartItemRequest request)
+        {
+            var currentItem = cart.Items.FirstOrDefault(x => x.Id.Equals(request.ShoppingCartItemId));
+            if (currentItem is null)
+                return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.NotFound, "Não foi possível encontrar o item no carrinho.");
+
+            if (request.Quantity == 0)
+                cart.RemoveItem(currentItem.Id);
+            else
+                cart.UpdateItemQuantity(currentItem.Id, request.Quantity);
+
+            return InternalResponse<ShoppingCartDTO>.Custom(HttpStatusCode.OK, "Ok");
         }
     }
 }
