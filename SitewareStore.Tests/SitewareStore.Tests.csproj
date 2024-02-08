@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="ServiceTests\ShoppingCart\" />
-    <Folder Include="ServiceTests\Promotion\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -29,5 +29,15 @@ namespace SitewareStore.Tests.Mocks
 
             return mock;
         }
+
+        public static Mock<IPromotionRepository> BuildException_For_Get()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.Get(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
+                .ThrowsAsync(new Exception("Fatal error"));
+
+            return mock;
+        }
     }
 }
