@@ -1,4 +1,4 @@
-﻿namespace SitewareStore.Infra.Data.Models
+﻿namespace SitewareStore.Domain.Models
 {
     /// <summary>
     /// Modelo de banco de dados para item do carrinho de compras

@@ -1,33 +1,33 @@
-﻿namespace SitewareStore.Infra.Data.Models
+﻿namespace SitewareStore.Domain.Models
 {
     /// <summary>
-    /// Modelo para banco de dados de produto
+    /// Modelo de banco de dados para carrinho de compras
     /// </summary>
-    public class ProductModel
+    public class ShoppingCartModel
     {
         /// <summary>
         /// Construtor vazio
         /// </summary>
-        public ProductModel() { }
+        public ShoppingCartModel() { }
 
         /// <summary>
         /// Construtor para inicializar as propriedades
         /// </summary>
         /// <param name="id">Id</param>
-        /// <param name="name">Nome</param>
-        /// <param name="price">Preço</param>
         /// <param name="status">Status</param>
-        /// <param name="promotionId">Id da promoção</param>
+        /// <param name="initialPrice">Preço inicial</param>
+        /// <param name="discounts">Descontos</param>
+        /// <param name="finalPrice">Preço final</param>
         /// <param name="createdAt">Data de criação</param>
-        /// <param name="updatedAt">Data de atualização</param>
-        public ProductModel(Guid id, string name, decimal price, int status,
-            Guid? promotionId, DateTime createdAt, DateTime updatedAt)
+        /// <param name="updatedAt">Data de alteração</param>
+        public ShoppingCartModel(Guid id, int status, decimal initialPrice, decimal discounts,
+            decimal finalPrice, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
-            Name = name;
-            Price = price;
             Status = status;
-            PromotionId = promotionId;
+            InitialPrice = initialPrice;
+            Discounts = discounts;
+            FinalPrice = finalPrice;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }
@@ -38,24 +38,24 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Nome
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Preço
-        /// </summary>
-        public decimal Price { get; set; }
-
-        /// <summary>
         /// Status
         /// </summary>
         public int Status { get; set; }
 
         /// <summary>
-        /// Id da promoção
+        /// Preço inicial
         /// </summary>
-        public Guid? PromotionId { get; set; }
+        public decimal InitialPrice { get; set; }
+
+        /// <summary>
+        /// Descontos
+        /// </summary>
+        public decimal Discounts { get; set; }
+
+        /// <summary>
+        /// Preço final
+        /// </summary>
+        public decimal FinalPrice { get; set; }
 
         /// <summary>
         /// Data de criação

@@ -1,4 +1,4 @@
-﻿namespace SitewareStore.Infra.Data.Models
+﻿namespace SitewareStore.Domain.Models
 {
     /// <summary>
     /// Modelo de banco de dados para promoção
@@ -23,7 +23,7 @@
         /// <param name="createdAt">Data de criação</param>
         /// <param name="updatedAt">Data de atualização</param>
         public PromotionModel(Guid id, string description, int type, int? cutQuantity,
-            int? percentage, int? price, int status, DateTime createdAt, DateTime updatedAt)
+            decimal? percentage, decimal? price, int status, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
             Description = description;
@@ -59,12 +59,12 @@
         /// <summary>
         /// Porcentagem
         /// </summary>
-        public int? Percentage { get; set; }
+        public decimal? Percentage { get; set; }
 
         /// <summary>
         /// Valor final aplicado
         /// </summary>
-        public int? Price { get; set; }
+        public decimal? Price { get; set; }
 
         /// <summary>
         /// Status
