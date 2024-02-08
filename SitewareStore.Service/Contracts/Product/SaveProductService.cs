@@ -66,6 +66,9 @@ namespace SitewareStore.Service.Contracts.Product
                     promotionEntity = await promotionRepository.Get(db, request.PromotionId.Value);
                 
                 var productEntity = await productRepository.Get(db, request.Id.Value);
+                if (productEntity is null)
+                    return productEntity;
+
                 productEntity.UpdateBasicData(request.Name, request.Price, promotionEntity);
 
                 return productEntity;
