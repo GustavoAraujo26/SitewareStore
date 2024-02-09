@@ -11,13 +11,10 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
         private readonly IShoppingCartRepository cartRepository;
         private readonly IRepositoryBase repositoryBase;
 
-        private readonly IMapper mapper;
-
-        public ListShoppingCartService(IShoppingCartRepository cartRepository, IRepositoryBase repositoryBase, IMapper mapper)
+        public ListShoppingCartService(IShoppingCartRepository cartRepository, IRepositoryBase repositoryBase)
         {
             this.cartRepository = cartRepository;
             this.repositoryBase = repositoryBase;
-            this.mapper = mapper;
         }
 
         public async Task<InternalResponse<ShoppingCartListDTO>> Execute()
