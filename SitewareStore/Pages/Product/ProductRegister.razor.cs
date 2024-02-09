@@ -113,5 +113,8 @@ namespace SitewareStore.Pages.Product
             blockEdit = false;
             StateHasChanged();
         }
+
+        private void GoBack() =>
+            Navigator.NavigateTo("/product/dashboard");
     }
 }

@@ -3,6 +3,8 @@
 
 @using SitewareStore.Domain.Enums
 
+<PageTitle>Siteware Store - Registro de produto</PageTitle>
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-8">
@@ -60,9 +62,13 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-end">
+                        <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => GoBack()">
+                            <span class="oi oi-arrow-thick-left" aria-hidden="true"></span> Voltar
+                        </button>
+
                         @if (blockEdit && !saving)
                         {
-                                <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="EnableEdit">
+                                <button class="btn btn-success" style="margin-right: 10px;" @onclick="EnableEdit">
                                 <span class="oi oi-pencil" aria-hidden="true"></span> Editar
                             </button>
                         }

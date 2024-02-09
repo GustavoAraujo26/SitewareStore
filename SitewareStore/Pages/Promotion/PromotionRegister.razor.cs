@@ -105,5 +105,8 @@ namespace SitewareStore.Pages.Promotion
             blockEdit = false;
             StateHasChanged();
         }
+
+        private void GoBack() =>
+            Navigator.NavigateTo("/promotion/dashboard");
     }
 }
