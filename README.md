@@ -50,4 +50,4 @@ Os scripts estão localizados no sub-projeto "SitewareStore.Infra.Data", na past
 
 Para executar de forma fácil os scripts, utilize o SQL Server Management Studio. Na janela de conexão com o servidor, no campo "Nome do servidor" insira "(localdb)\MSSQLLocalDB". Na caixa de seleção, escolha a opção "Autenticação do Windows". Em seguida, basta conectar e começar a executar os scripts.
 
-Após criação do banco de dados, basta executar o projeto da API ("SitewareStore");
+Após criação do banco de dados, basta executar o sub-projeto "SitewareStore" (Blazor Server-Side);
