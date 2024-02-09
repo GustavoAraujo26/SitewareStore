@@ -1,4 +1,5 @@
 ﻿using SitewareStore.Infra.CrossCutting.Attributes;
+using System;
 
 namespace SitewareStore.Domain.Enums
 {
@@ -46,10 +47,32 @@ namespace SitewareStore.Domain.Enums
         public static string GetDescription(this PromotionType promotionType)
         {
             var enumType = typeof(PromotionType);
-            var memberInfo = enumType.GetMember(PromotionType.FullPriceByQuantity.ToString());
+            var memberInfo = enumType.GetMember(promotionType.ToString());
             var enumValueMemberInfo = memberInfo.FirstOrDefault(x => x.DeclaringType == enumType);
             var valueAttributes = enumValueMemberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
             return ((DescriptionAttribute)valueAttributes[0]).Value;
+        }
+
+        /// <summary>
+        /// Lista todas as opções do enumerador
+        /// </summary>
+        /// <param name="promotionType">Tipo da promoção</param>
+        /// <returns></returns>
+        public static List<KeyValuePair<int, string>> ListOptions(this PromotionType promotionType)
+        {
+            var result = new List<KeyValuePair<int, string>>();
+
+            var enumOptionList = Enum.GetValues(typeof(PromotionType)).Cast<PromotionType>().ToList();
+
+            foreach (var enumOption in enumOptionList)
+            {
+                int optionValue = (int)enumOption;
+                string description = enumOption.GetDescription();
+
+                result.Add(new KeyValuePair<int, string>(optionValue, description));
+            }
+
+            return result;
         }
     }
 }

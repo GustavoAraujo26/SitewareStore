@@ -21,6 +21,6 @@ namespace SitewareStore.Infra.Data.Contracts
             new SqlConnection(dbConnection.DbConnectionString);
 
         public TransactionScope CreateTransaction() =>
-            new TransactionScope();
+            new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
     }
 }

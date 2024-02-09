@@ -32,15 +32,37 @@ namespace SitewareStore.Domain.Enums
         /// <summary>
         /// Retorna a descrição do valor selecionado no enumerador
         /// </summary>
-        /// <param name="promotionType">Tipo de status</param>
+        /// <param name="statusType">Tipo de status</param>
         /// <returns>Texto com a descrição</returns>
-        public static string GetDescription(this ShoppingCartStatus promotionType)
+        public static string GetDescription(this ShoppingCartStatus statusType)
         {
             var enumType = typeof(ShoppingCartStatus);
-            var memberInfo = enumType.GetMember(ShoppingCartStatus.Pending.ToString());
+            var memberInfo = enumType.GetMember(statusType.ToString());
             var enumValueMemberInfo = memberInfo.FirstOrDefault(x => x.DeclaringType == enumType);
             var valueAttributes = enumValueMemberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
             return ((DescriptionAttribute)valueAttributes[0]).Value;
+        }
+
+        /// <summary>
+        /// Lista todas as opções do enumerador
+        /// </summary>
+        /// <param name="statusType">Tipo de status</param>
+        /// <returns></returns>
+        public static List<KeyValuePair<int, string>> ListOptions(this ShoppingCartStatus statusType)
+        {
+            var result = new List<KeyValuePair<int, string>>();
+
+            var enumOptionList = Enum.GetValues(typeof(ShoppingCartStatus)).Cast<ShoppingCartStatus>().ToList();
+
+            foreach (var enumOption in enumOptionList)
+            {
+                int optionValue = (int)enumOption;
+                string description = enumOption.GetDescription();
+
+                result.Add(new KeyValuePair<int, string>(optionValue, description));
+            }
+
+            return result;
         }
     }
 }

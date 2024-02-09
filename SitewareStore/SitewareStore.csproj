@@ -13,4 +13,9 @@
     <ProjectReference Include="..\SitewareStore.Service\SitewareStore.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\ShoppingCart\" />
+    <Folder Include="Pages\Product\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,97 @@
+﻿@page "/promotion/register"
+@page "/promotion/register/{CurrentPromotionId}"
+
+@using SitewareStore.Domain.Enums
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            @if (alertControl.Key)
+            {
+                <div class="alert alert-danger" role="alert">
+                  <h5 class="text-center">
+                      <span class="oi oi-warning" aria-hidden="true"></span> Ocorreu um erro
+                  </h5>
+                  <hr/>
+                  <h6 class="text-center">@alertControl.Value</h6>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(CurrentPromotionId))
+                    {
+                        <div class="mb-3">
+                            <label for="identifier" class="form-label">Identificador</label>
+                            <input type="text" class="form-control" id="identifier" @bind="SaveRequest.Id" disabled="true">
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                      <label for="observation" class="form-label">Observação</label>
+                      <textarea class="form-control" id="observation" rows="3" @bind="SaveRequest.Observation" disabled="@blockEdit"></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="observation" class="form-label">Tipo</label>
+                      <select class="form-select" id="promotion-type" @bind="typeSelected" @bind:after="OnTypeChange" disabled="@blockEdit">
+                            <option value="0">Selecione uma das opções</option>
+                            @foreach(var typeOption in typeList)
+                            {
+                                <option value="@typeOption.Key">@typeOption.Value</option>    
+                            }
+                        </select>
+                    </div>
+
+                    @if (typeSelected == (int)PromotionType.FullPriceByQuantity || typeSelected == (int)PromotionType.PayQuantityMinusOne)
+                    {
+                        <div class="mb-3">
+                          <label for="cut-quantity" class="form-label">Quantidade de corte</label>
+                          <input type="number" class="form-control" id="cut-quantity" @bind="SaveRequest.CutQuantity" min="0" disabled="@blockEdit">
+                        </div>
+                    }
+
+                    @if (typeSelected == (int)PromotionType.FullPriceByQuantity)
+                    {
+                        <div class="mb-3">
+                          <label for="price" class="form-label">Preço Final</label>
+                          <input type="number" class="form-control" id="price" @bind="SaveRequest.Price" step=".01" min="0" disabled="@blockEdit">
+                        </div>
+                    }
+
+
+                    @if (typeSelected == (int)PromotionType.PercentageDiscount)
+                    {
+                        <div class="mb-3">
+                          <label for="percentage" class="form-label">Porcentagem de desconto</label>
+                          <input type="number" class="form-control" id="percentage" @bind="SaveRequest.Percentage" step=".01" min="0" disabled="@blockEdit">
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    <div class="float-end">
+                        @if (blockEdit && !saving)
+                        {
+                                <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="EnableEdit">
+                                <span class="oi oi-pencil" aria-hidden="true"></span> Editar
+                            </button>
+                        }
+
+                        <button class="btn btn-primary" @onclick="async () => await Save()" disabled="@blockEdit">
+                            @if (saving)
+                            {
+                                <div class="spinner-border" role="status">
+                                  <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="oi oi-check" aria-hidden="true"></span>    
+                            }
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
