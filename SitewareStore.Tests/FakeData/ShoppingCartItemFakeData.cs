@@ -14,20 +14,24 @@ namespace SitewareStore.Tests.FakeData
         /// </summary>
         /// <param name="promotionType">Tipo da promoção</param>
         /// <returns></returns>
-        public static ShoppingCartItem BuildCartItem(PromotionType? promotionType = null)
+        public static ShoppingCartItem BuildCartItem(PromotionType? promotionType = null, Guid? chartItemId = null)
         {
             var faker = new Faker();
 
             var product = ProductFakeData.BuildEntity(promotionType);
 
-            return new ShoppingCartItem(faker.Random.Guid(), product, faker.Random.Int(1, 100));
+            var currentId = faker.Random.Guid();
+            if (chartItemId.HasValue && !chartItemId.Value.Equals(Guid.Empty))
+                currentId = chartItemId.Value;
+
+            return new ShoppingCartItem(currentId, product, faker.Random.Int(1, 100));
         }
 
         /// <summary>
         /// Gera lista de itens de um carrinho de compras
         /// </summary>
         /// <returns></returns>
-        public static List<ShoppingCartItem> BuildCartItemList()
+        public static List<ShoppingCartItem> BuildCartItemList(Guid? chartItemId = null)
         {
             var result = new List<ShoppingCartItem>();
 
@@ -42,6 +46,9 @@ namespace SitewareStore.Tests.FakeData
                 else
                     result.Add(BuildCartItem());
             }
+
+            if (chartItemId.HasValue && !chartItemId.Value.Equals(Guid.Empty))
+                result.Add(BuildCartItem(null, chartItemId));
 
             return result;
         }

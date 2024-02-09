@@ -8,7 +8,7 @@ namespace SitewareStore.Tests.Mock
 {
     internal static class ShoppingCartRepositoryMock
     {
-        internal static Mock<IShoppingCartRepository> BuildSuccess()
+        internal static Mock<IShoppingCartRepository> BuildSuccess(Guid? chartItemId = null)
         {
             var mock = new Mock<IShoppingCartRepository>();
 
@@ -16,7 +16,7 @@ namespace SitewareStore.Tests.Mock
                 .Returns(Task.CompletedTask);
 
             mock.Setup(x => x.Get(It.IsAny<SqlConnection>(), It.IsAny<Guid>()))
-                .ReturnsAsync(ShoppingCartFakeData.Build());
+                .ReturnsAsync(ShoppingCartFakeData.Build(chartItemId));
 
             mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
                 .ReturnsAsync(ShoppingCartFakeData.BuildDtoList());

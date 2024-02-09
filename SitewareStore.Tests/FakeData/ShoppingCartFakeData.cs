@@ -14,12 +14,12 @@ namespace SitewareStore.Tests.FakeData
         /// Gera um carrinho de compras
         /// </summary>
         /// <returns></returns>
-        public static ShoppingCart Build()
+        public static ShoppingCart Build(Guid? chartItemId = null)
         {
             var faker = new Faker();
 
-            var itemList = ShoppingCartItemFakeData.BuildCartItemList();
-
+            var itemList = ShoppingCartItemFakeData.BuildCartItemList(chartItemId);
+            
             return new ShoppingCart(faker.Random.Guid(), ShoppingCartStatus.Pending, 
                 itemList, DateTime.Now, DateTime.Now);
         }
