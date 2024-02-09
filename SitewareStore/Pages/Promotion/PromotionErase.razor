@@ -3,7 +3,7 @@
 @using SitewareStore.Domain.Enums
 
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-md-6">
             @if (alertControl.Key)
             {
@@ -50,7 +50,7 @@
                                 {
                                     <tr>
                                         <th scope="row">Porcentagem de desconto</th>
-                                        <td>@PromotionDto.Percentage</td>
+                                        <td>@PromotionDto.Percentage?.ToString("F") %</td>
                                     </tr>
                                 }
 
@@ -58,7 +58,7 @@
                                 {
                                     <tr>
                                         <th scope="row">Preço final</th>
-                                        <td>@PromotionDto.Price</td>
+                                        <td>@PromotionDto.Price?.ToString("C")</td>
                                     </tr>
                                 }
                             </tbody>

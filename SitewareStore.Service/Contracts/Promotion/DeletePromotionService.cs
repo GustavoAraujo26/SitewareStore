@@ -47,6 +47,8 @@ namespace SitewareStore.Service.Contracts.Promotion
 
                     var dto = mapper.Map<PromotionDTO>(currentPromotion);
 
+                    repositoryBase.CompleteTransaction(transaction);
+
                     return InternalResponse<PromotionDTO>.Success(dto);
                 }
             }

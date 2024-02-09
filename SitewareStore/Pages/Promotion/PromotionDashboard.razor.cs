@@ -25,6 +25,12 @@ namespace SitewareStore.Pages.Promotion
         private void NavigateToEdition(Guid id) =>
             Navigator.NavigateTo($"/promotion/register/{id}");
 
+        private void NavigateToErase(Guid id) =>
+            Navigator.NavigateTo($"/promotion/delete/{id}");
+
+        private void NavigateToStatusChange(Guid id) =>
+            Navigator.NavigateTo($"/promotion/change-status/{id}");
+
         private async Task LoadResponse()
         {
             listResponse = await ListPromotionService.Execute();
