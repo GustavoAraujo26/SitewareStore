@@ -53,5 +53,15 @@ namespace SitewareStore.Tests.Mock
 
             return mock;
         }
+
+        internal static Mock<IShoppingCartRepository> BuildException_For_Save()
+        {
+            var mock = BuildSuccess();
+
+            mock.Setup(x => x.Save(It.IsAny<SqlConnection>(), It.IsAny<ShoppingCart>()))
+                .ThrowsAsync(new Exception("Fatal Error"));
+
+            return mock;
+        }
     }
 }
