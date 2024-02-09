@@ -15,19 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{183C2CF8-9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{C57FE6B9-E2EC-4B58-A6B7-A3F387AEB95E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Application", "SitewareStore.Application\SitewareStore.Application.csproj", "{8C5B40AB-2814-433B-AC05-8CCA38E5612D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitewareStore.Domain", "SitewareStore.Domain\SitewareStore.Domain.csproj", "{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Domain", "SitewareStore.Domain\SitewareStore.Domain.csproj", "{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitewareStore.Service", "SitewareStore.Service\SitewareStore.Service.csproj", "{CDC3B7E2-45FC-41C2-ACC0-6C1298DC91A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Service", "SitewareStore.Service\SitewareStore.Service.csproj", "{CDC3B7E2-45FC-41C2-ACC0-6C1298DC91A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitewareStore.Infra.Data", "SitewareStore.Infra.Data\SitewareStore.Infra.Data.csproj", "{76AB3642-6D96-4F11-8A93-536D60C9F6AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Infra.Data", "SitewareStore.Infra.Data\SitewareStore.Infra.Data.csproj", "{76AB3642-6D96-4F11-8A93-536D60C9F6AF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Infra.CrossCutting", "SitewareStore.Infra.CrossCutting\SitewareStore.Infra.CrossCutting.csproj", "{441A8827-4DDF-47AB-B81E-695275C15642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitewareStore.Infra.CrossCutting", "SitewareStore.Infra.CrossCutting\SitewareStore.Infra.CrossCutting.csproj", "{441A8827-4DDF-47AB-B81E-695275C15642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A360616E-2AC3-405A-BE71-BD66E6FF8E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore.Tests", "SitewareStore.Tests\SitewareStore.Tests.csproj", "{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitewareStore.Tests", "SitewareStore.Tests\SitewareStore.Tests.csproj", "{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitewareStore", "SitewareStore\SitewareStore.csproj", "{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8C5B40AB-2814-433B-AC05-8CCA38E5612D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C5B40AB-2814-433B-AC05-8CCA38E5612D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C5B40AB-2814-433B-AC05-8CCA38E5612D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C5B40AB-2814-433B-AC05-8CCA38E5612D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,6 +55,10 @@ Global
 		{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,12 +66,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{183C2CF8-9635-4088-AF5E-940ABBE3D072} = {14479BD9-C62B-46DC-822B-67866968B8CA}
 		{C57FE6B9-E2EC-4B58-A6B7-A3F387AEB95E} = {14479BD9-C62B-46DC-822B-67866968B8CA}
-		{8C5B40AB-2814-433B-AC05-8CCA38E5612D} = {384D07D0-122B-45CC-81E5-012A8A03AF7F}
 		{6DB6DFB3-94FC-4BAE-B28B-A20F9CE789E2} = {C740FEF6-5826-4053-969A-D6BF0220CFDF}
 		{CDC3B7E2-45FC-41C2-ACC0-6C1298DC91A2} = {37A33584-2688-417E-83BD-C5D15061B986}
 		{76AB3642-6D96-4F11-8A93-536D60C9F6AF} = {183C2CF8-9635-4088-AF5E-940ABBE3D072}
 		{441A8827-4DDF-47AB-B81E-695275C15642} = {C57FE6B9-E2EC-4B58-A6B7-A3F387AEB95E}
 		{CDA1A848-2DFF-4788-BD6D-AEAEC7058EBC} = {A360616E-2AC3-405A-BE71-BD66E6FF8E83}
+		{66DD6398-5F7B-4CB7-B3A3-B063FADE5F27} = {384D07D0-122B-45CC-81E5-012A8A03AF7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CBC7BA4-5C1B-4174-BAAA-501D6522977D}
