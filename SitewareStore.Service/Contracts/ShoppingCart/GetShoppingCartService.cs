@@ -14,12 +14,6 @@ namespace SitewareStore.Service.Contracts.ShoppingCart
 
         private readonly IMapper mapper;
 
-        public GetShoppingCartService(IShoppingCartRepository cartRepository, IMapper mapper)
-        {
-            this.cartRepository = cartRepository;
-            this.mapper = mapper;
-        }
-
         public GetShoppingCartService(IShoppingCartRepository cartRepository, IRepositoryBase repositoryBase, IMapper mapper)
         {
             this.cartRepository = cartRepository;
