@@ -23,7 +23,7 @@ namespace SitewareStore.Tests.Mocks
                 .Returns(Task.CompletedTask);
 
             mock.Setup(x => x.ListActives(It.IsAny<SqlConnection>()))
-                .ReturnsAsync(ProductFakeData.BuildDtoList());
+                .ReturnsAsync(ProductFakeData.BuildEntityList());
 
             mock.Setup(x => x.ListAll(It.IsAny<SqlConnection>()))
                 .ReturnsAsync(ProductFakeData.BuildDtoList());

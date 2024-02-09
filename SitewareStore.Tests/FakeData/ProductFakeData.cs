@@ -60,6 +60,16 @@ namespace SitewareStore.Tests.FakeData
                 faker.Random.Decimal(1, 100), status ?? StatusType.Active, promotion, DateTime.Now, DateTime.Now);
         }
 
+        public static List<Product> BuildEntityList()
+        {
+            var result = new List<Product>();
+
+            for (int i = 1; i <= 5; i++)
+                result.Add(BuildEntity());
+
+            return result;
+        }
+
         /// <summary>
         /// Retorna lista de produtos para serem exibidos
         /// </summary>

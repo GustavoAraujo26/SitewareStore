@@ -39,8 +39,23 @@ namespace SitewareStore.Infra.Data.Contracts
             return mapper.Map<Product>(container);
         }
 
-        public async Task<List<ProductListDTO>> ListActives(SqlConnection db) =>
-            (await db.QueryAsync<ProductListDTO>(ProductSql.ListActives)).ToList();
+        public async Task<List<Product>> ListActives(SqlConnection db)
+        {
+            var result = new List<Product>();
+
+            var productIdList = (await db.QueryAsync<Guid>(ProductSql.ListActives)).ToList();
+            if (productIdList is null || !productIdList.Any())
+                return result;
+
+            foreach(var id in productIdList)
+            {
+                var product = await Get(db, id);
+                if (product is not null)
+                    result.Add(product);
+            }
+
+            return result;
+        }
 
         public async Task<List<ProductListDTO>> ListAll(SqlConnection db) =>
             (await db.QueryAsync<ProductListDTO>(ProductSql.ListAll)).ToList();

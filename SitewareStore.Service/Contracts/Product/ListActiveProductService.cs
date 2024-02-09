@@ -16,7 +16,7 @@ namespace SitewareStore.Service.Contracts.Product
             this.repositoryBase = repositoryBase;
         }
 
-        public async Task<InternalResponse<ProductListDTO>> Execute()
+        public async Task<InternalResponse<Domain.Entities.Product>> Execute()
         {
             try
             {
@@ -24,12 +24,12 @@ namespace SitewareStore.Service.Contracts.Product
                 {
                     var productList = await productRepository.ListActives(db);
 
-                    return InternalResponse<ProductListDTO>.Success(productList);
+                    return InternalResponse<Domain.Entities.Product>.Success(productList);
                 }
             }
             catch(Exception ex)
             {
-                return InternalResponse<ProductListDTO>.Error(ex);
+                return InternalResponse<Domain.Entities.Product>.Error(ex);
             }
         }
     }

@@ -68,12 +68,7 @@
         /// Lista todos os produtos ativos
         /// </summary>
         internal const string ListActives = @"
-        SELECT [pk-product] as 'Id'
-            ,[name] as 'Name'
-            ,[price] as 'Price'
-            ,[status] as 'Status'
-            ,[fk-promotion] as 'PromotionApplied'
-            ,[updated-at] as 'ChangeAt'
+        SELECT [pk-product]
         FROM [SitewareStoreDB].[dbo].[Product] WITH(NOLOCK)
         WHERE [status] = 1
         ";
