@@ -1,7 +1,17 @@
+using SitewareStore.Infra.Data.Extensions;
+using SitewareStore.Domain.Extensions;
+using SitewareStore.Service.Extensions;
+using SitewareStore.Infra.CrossCutting.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.ConfigureStoreAutoMapper();
+builder.Services.ConfigureRepositories();
+builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigureDbConnectionString();
 
 var app = builder.Build();
 

@@ -11,4 +11,10 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SitewareStore.Domain\SitewareStore.Domain.csproj" />
+    <ProjectReference Include="..\SitewareStore.Infra.Data\SitewareStore.Infra.Data.csproj" />
+    <ProjectReference Include="..\SitewareStore.Service\SitewareStore.Service.csproj" />
+  </ItemGroup>
+
 </Project>
