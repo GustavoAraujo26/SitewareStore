@@ -24,7 +24,7 @@ namespace SitewareStore.Domain.Mappers.TypeConverters.DTOs
                     promotionDescription = context.Mapper.Map<string>(itemEntity.Product.PromotionApplied);
 
                 result.Add(new ShoppingCartItemDTO(itemEntity.Id, itemEntity.Product.Name, 
-                    itemEntity.Quantity, initialPrice, promotionDescription, itemEntity.FinalPrice));
+                    itemEntity.Quantity, itemEntity.Product.Price, promotionDescription, itemEntity.FinalPrice));
             }
 
             return result;

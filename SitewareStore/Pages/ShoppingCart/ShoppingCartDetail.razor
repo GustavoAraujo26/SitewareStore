@@ -1,8 +1,149 @@
 ﻿@page "/cart/detail"
 @page "/cart/detail/{CurrentCartId}"
 
-<h3>ShoppingCartDetail</h3>
+@using SitewareStore.Domain.Enums
 
-@code {
+<PageTitle>Siteware Store - Carrinho de compras</PageTitle>
 
-}
+
+<div class="container">
+    @if (alertControl.Key)
+    {
+        <div class="alert alert-danger" role="alert">
+            <h5 class="text-center">
+                <span class="oi oi-warning" aria-hidden="true"></span> Ocorreu um erro
+            </h5>
+            <hr/>
+            <h6 class="text-center">@alertControl.Value</h6>
+        </div>
+    }
+
+    <h3>Carrinho de compras</h3>
+    <hr/>
+
+    @if (currentCart != null)
+    {
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-striped table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Identificador</th>
+                                            <td>@currentCart.Id</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Status</th>
+                                            <td>@currentCart.Status.GetDescription()</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Última Alteração</th>
+                                            <td>@currentCart.ChangeAt.ToString()</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-striped table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Preço Inicial</th>
+                                            <td>@currentCart.InitialPrice.ToString("C")</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Descontos</th>
+                                            <td>@currentCart.Discounts.ToString("C")</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Preço Final</th>
+                                            <td>@currentCart.FinalPrice.ToString("C")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="float-end">
+                            <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => ContinueShopping()">
+                                <span class="oi oi-arrow-thick-left" aria-hidden="true"></span> Continuar Comprando
+                            </button>
+
+                            <button class="btn btn-primary" @onclick="async () => await FinalizeShop()" disabled="@saving">
+                                @if (saving)
+                                {
+                                    <div class="spinner-border" role="status">
+                                      <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="oi oi-dollar" aria-hidden="true"></span>    
+                                }
+                                Finalizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        @if (currentCart.Items != null && currentCart.Items.Any())
+        {
+            <div class="row justify-content-md-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Preço Inicial</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Promoção aplicada</th>
+                                        <th scope="col">Preço Final</th>
+
+                                        @if (currentCart.Status == ShoppingCartStatus.Pending)
+                                        {
+                                            <th scope="col">Ações</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in currentCart.Items)
+                                    {
+                                        <tr>
+                                            <td>@item.ProductName</td>
+                                                        <td>@item.InitialPrice.ToString("C")</td>
+                                            <td>
+                                                <input type="number" class="form-control" id="cut-quantity" @bind="item.Quantity" @bind:after="async () => await UpdateItem(item.Id, false)"
+                                                    min="0" disabled="@(currentCart.Status != ShoppingCartStatus.Pending || saving)">
+                                            </td>
+                                            <td>@item.PromotionApplied</td>
+                                            <td>@item.FinalPrice.ToString("C")</td>
+
+                                            @if (currentCart.Status == ShoppingCartStatus.Pending)
+                                            {
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm" title="Remover" @onclick="async () => await UpdateItem(item.Id, true)" disabled="@saving">
+                                                        <span class="oi oi-trash" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>
