@@ -11,12 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.ConfigureStoreAutoMapper();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureDbConnectionString();
+builder.Services.AddSingleton<UserShoppingCartService>();
 
 var app = builder.Build();
 

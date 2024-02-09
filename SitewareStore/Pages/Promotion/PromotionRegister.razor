@@ -17,6 +17,16 @@
                 </div>
             }
 
+            @if (string.IsNullOrEmpty(CurrentPromotionId))
+            {
+                <h3>Criação de Promoção</h3>
+            }
+            else
+            {
+                <h3>Alteração de Promoção</h3>   
+            }
+            <hr/>
+
             <div class="card">
                 <div class="card-body">
                     @if (!string.IsNullOrEmpty(CurrentPromotionId))

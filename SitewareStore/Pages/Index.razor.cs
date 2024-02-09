@@ -1,0 +1,44 @@
+﻿using Microsoft.AspNetCore.Components;
+using SitewareStore.Data;
+using SitewareStore.Domain.Services.Product;
+using SitewareStore.Domain.Services.ShoppingCart;
+
+namespace SitewareStore.Pages
+{
+    public partial class Index : ComponentBase
+    {
+        [Inject]
+        private IListActiveProductService ListActiveProductService { get; set; }
+
+        [Inject]
+        private NavigationManager Navigator { get; set; }
+
+        [Inject]
+        private UserShoppingCartService UserCartService { get; set; }
+
+        [Inject]
+        private IInitializeShoppingCartService CartInitializationService { get; set; }
+
+        private KeyValuePair<bool, string> alertControl = new KeyValuePair<bool, string>(false, string.Empty);
+
+        protected override async Task OnInitializedAsync()
+        {
+            await GetCurrentCart();
+        }
+
+        private async Task GetCurrentCart()
+        {
+            var response = await UserCartService.GetCurrent(CartInitializationService.Execute);
+            if (!response.IsSuccess())
+            {
+                alertControl = new KeyValuePair<bool, string>(true, response.Message);
+            }
+            else
+            {
+                alertControl = new KeyValuePair<bool, string>(false, response.Message);
+            }
+
+            StateHasChanged();
+        }
+    }
+}
