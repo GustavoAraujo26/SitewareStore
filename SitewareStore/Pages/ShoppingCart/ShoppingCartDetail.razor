@@ -5,6 +5,8 @@
 
 <PageTitle>Siteware Store - Carrinho de compras</PageTitle>
 
+<h3>Carrinho de compras</h3>
+<hr/>
 
 <div class="container">
     @if (alertControl.Key)
@@ -17,9 +19,6 @@
             <h6 class="text-center">@alertControl.Value</h6>
         </div>
     }
-
-    <h3>Carrinho de compras</h3>
-    <hr/>
 
     @if (currentCart != null)
     {
@@ -68,23 +67,31 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-end">
-                            <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => ContinueShopping()">
-                                <span class="oi oi-arrow-thick-left" aria-hidden="true"></span> Continuar Comprando
-                            </button>
-
-                            <button class="btn btn-primary" @onclick="async () => await FinalizeShop()" disabled="@saving">
-                                @if (saving)
-                                {
-                                    <div class="spinner-border" role="status">
-                                      <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <span class="oi oi-dollar" aria-hidden="true"></span>    
-                                }
-                                Finalizar
-                            </button>
+                            @if (currentCart.Status == ShoppingCartStatus.Pending)
+                            {
+                                <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => ContinueShopping()">
+                                    <span class="oi oi-cart" aria-hidden="true"></span> Continuar Comprando
+                                </button>
+                                <button class="btn btn-primary" @onclick="async () => await FinalizeShop()" disabled="@saving">
+                                    @if (saving)
+                                    {
+                                        <div class="spinner-border" role="status">
+                                          <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="oi oi-dollar" aria-hidden="true"></span>    
+                                    }
+                                    Finalizar
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => GoBack()">
+                                    <span class="oi oi-arrow-thick-left" aria-hidden="true"></span> Voltar
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>

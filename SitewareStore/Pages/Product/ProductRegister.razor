@@ -5,6 +5,16 @@
 
 <PageTitle>Siteware Store - Registro de produto</PageTitle>
 
+@if (string.IsNullOrEmpty(CurrentProductId))
+{
+    <h3>Criação de Produto</h3>
+}
+else
+{
+    <h3>Alteração de Produto</h3>   
+}
+<hr/>
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-8">
@@ -18,16 +28,6 @@
                   <h6 class="text-center">@alertControl.Value</h6>
                 </div>
             }
-
-            @if (string.IsNullOrEmpty(CurrentProductId))
-            {
-                <h3>Criação de Produto</h3>
-            }
-            else
-            {
-                <h3>Alteração de Produto</h3>   
-            }
-            <hr/>
 
             <div class="card">
                 <div class="card-body">

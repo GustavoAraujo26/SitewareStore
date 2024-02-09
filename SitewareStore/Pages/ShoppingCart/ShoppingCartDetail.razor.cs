@@ -106,6 +106,9 @@ namespace SitewareStore.Pages.ShoppingCart
         private void ContinueShopping() =>
             Navigator.NavigateTo("/");
 
+        private void GoBack() =>
+            Navigator.NavigateTo("/cart/dashboard");
+
         private async Task FinalizeShop()
         {
             saving = true;

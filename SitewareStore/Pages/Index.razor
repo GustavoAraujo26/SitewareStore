@@ -2,6 +2,9 @@
 
 <PageTitle>Siteware Store - Produtos em oferta</PageTitle>
 
+<h3>Produtos em oferta</h3>
+<hr/>
+
 <div class="container">
 
     @if (alertControl.Key)
@@ -14,9 +17,6 @@
             <h6 class="text-center">@alertControl.Value</h6>
         </div>
     }
-
-    <h3>Produtos em oferta</h3>
-    <hr/>
 
     @if (activeProductList != null && activeProductList.Any())
     {
