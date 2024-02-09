@@ -2,8 +2,53 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container">
 
-Welcome to your new app.
+    @if (alertControl.Key)
+    {
+        <div class="alert alert-danger" role="alert">
+            <h5 class="text-center">
+                <span class="oi oi-warning" aria-hidden="true"></span> Ocorreu um erro
+            </h5>
+            <hr/>
+            <h6 class="text-center">@alertControl.Value</h6>
+        </div>
+    }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <h3>Produtos em oferta</h3>
+    <hr/>
+
+    @if (activeProductList != null && activeProductList.Any())
+    {
+        <div class="row justify-content-md-center">
+            @foreach (var product in activeProductList)
+            {
+                <div class="col-md-4">
+                    <div class="card" style="heigth: 400px;">
+                        <div class="card-body">
+                            <br/>
+                            <div class="text-center">
+                                <span class="oi oi-box" aria-hidden="true" style="font-size: 50px;"></span>
+                            </div>
+                            <hr/>
+                            <p class="card-title text-center" style="font-size: 20px;"><b>@product.Name</b></p>
+                            <p class="text-center" style="font-size: 12px;">Identificador: @product.Id</p>
+                            <p class="card-title text-center"><b>Por @product.Price.ToString("C")</b></p>
+
+                            @if (product.PromotionApplied != null)
+                            {
+                                <p class="card-title text-center text-danger"><b>Oferta: @product.PromotionApplied.BuildResume()</b></p>
+                            }
+
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-lg">Comprar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,4 +1,5 @@
 ﻿using SitewareStore.Domain.Enums;
+using System.Globalization;
 
 namespace SitewareStore.Domain.Entities
 {
@@ -230,5 +231,33 @@ namespace SitewareStore.Domain.Entities
             decimal finalProductPrice = productPrice - percentagePrice;
             return decimal.Round(chartItemQuantity * finalProductPrice, 2);
         }
+
+        /// <summary>
+        /// Constrói resumo da promoção
+        /// </summary>
+        /// <returns></returns>
+        public string BuildResume() =>
+            Type switch
+            {
+                PromotionType.FullPriceByQuantity => GetFullPriceByQuantityDescription(),
+                PromotionType.PayQuantityMinusOne => GetPayQuantityMinusOneDescription(),
+                PromotionType.PercentageDiscount => GetPercentageDiscountDescription(),
+                _ => "Sem desconto"
+            };
+
+        private string GetFullPriceByQuantityDescription()
+        {
+            string priceFormatted = Price?.ToString("C", CultureInfo.CreateSpecificCulture("pt-Br"));
+            return $"{(CutQuantity ?? 0)} itens por {priceFormatted}";
+        }
+
+        private string GetPayQuantityMinusOneDescription()
+        {
+            var finalQuantity = (CutQuantity ?? 0) - 1;
+            return $"Leve {(CutQuantity ?? 0)} pague {finalQuantity}";
+        }
+
+        private string GetPercentageDiscountDescription() =>
+            $"{(Percentage ?? 0)}% de desconto";
     }
 }
