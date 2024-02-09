@@ -15,12 +15,20 @@ namespace SitewareStore.Pages.Promotion
 
         private InternalResponse<PromotionListDTO> listResponse { get; set; }
 
+        private KeyValuePair<bool, string> alertControl = new KeyValuePair<bool, string>(false, string.Empty);
+
         protected override async Task OnInitializedAsync()
         {
-            listResponse = await ListPromotionService.Execute();
+            await LoadResponse();
         }
 
         private void NavigateToEdition(Guid id) =>
             Navigator.NavigateTo($"/promotion/register/{id}");
+
+        private async Task LoadResponse()
+        {
+            listResponse = await ListPromotionService.Execute();
+            alertControl = new KeyValuePair<bool, string>(!listResponse.IsSuccess(), listResponse.Message);
+        }
     }
 }
