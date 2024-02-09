@@ -20,7 +20,7 @@
         /// <param name="promotionApplied">Promoção aplicada</param>
         /// <param name="changeAt">Data de criação</param>
         public ProductListDTO(Guid id, string name, decimal price, string status,
-            string promotionApplied, string changeAt)
+            Guid? promotionApplied, string changeAt)
         {
             Id = id;
             Name = name;
@@ -53,7 +53,7 @@
         /// <summary>
         /// Promoção aplicada
         /// </summary>
-        public string PromotionApplied { get; set; }
+        public Guid? PromotionApplied { get; set; }
 
         /// <summary>
         /// Data de criação/alteração

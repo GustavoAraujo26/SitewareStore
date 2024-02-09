@@ -96,6 +96,8 @@ namespace SitewareStore.Domain.Entities
 
             if (promotion is not null)
                 AddPromotion(promotion);
+            else
+                RemovePromotion();
 
             UpdatedAt = DateTime.Now;
         }

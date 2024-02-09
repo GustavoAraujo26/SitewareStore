@@ -1,0 +1,78 @@
+﻿@page "/product/register"
+@page "/product/register/{CurrentProductId}"
+
+@using SitewareStore.Domain.Enums
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            @if (alertControl.Key)
+            {
+                <div class="alert alert-danger" role="alert">
+                  <h5 class="text-center">
+                      <span class="oi oi-warning" aria-hidden="true"></span> Ocorreu um erro
+                  </h5>
+                  <hr/>
+                  <h6 class="text-center">@alertControl.Value</h6>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(CurrentProductId))
+                    {
+                        <div class="mb-3">
+                            <label for="identifier" class="form-label">Identificador</label>
+                            <input type="text" class="form-control" id="identifier" @bind="SaveRequest.Id" disabled="true">
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name" @bind="SaveRequest.Name" disabled="@blockEdit">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Preço</label>
+                        <input type="number" class="form-control" id="price" @bind="SaveRequest.Price" step=".01" min="0" disabled="@blockEdit">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="promotion-type" class="form-label">Promoção aplicada</label>
+                      <select class="form-select" id="promotion-type" @bind="SaveRequest.PromotionId" disabled="@blockEdit">
+                            <option value="@Guid.Empty">Selecione uma das opções</option>
+                            @foreach(var typeOption in activePromotionList)
+                            {
+                                <option value="@typeOption.Key">@typeOption.Value</option>    
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="float-end">
+                        @if (blockEdit && !saving)
+                        {
+                                <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="EnableEdit">
+                                <span class="oi oi-pencil" aria-hidden="true"></span> Editar
+                            </button>
+                        }
+
+                        <button class="btn btn-primary" @onclick="async () => await Save()" disabled="@blockEdit">
+                            @if (saving)
+                            {
+                                <div class="spinner-border" role="status">
+                                  <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="oi oi-check" aria-hidden="true"></span>    
+                            }
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

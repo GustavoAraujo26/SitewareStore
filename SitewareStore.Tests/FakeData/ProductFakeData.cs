@@ -71,31 +71,31 @@ namespace SitewareStore.Tests.FakeData
             for(int i = 1; i <= 5; i++)
             {
                 Product product = null;
-                string promotionDescription = null;
+                Guid? promotionApplied = null;
 
                 if (i == 1)
                 {
                     product = BuildEntity(PromotionType.FullPriceByQuantity);
-                    promotionDescription = PromotionFakeData.GetFullPriceByQuantityDescription(product.PromotionApplied);
+                    promotionApplied = product.PromotionApplied.Id;
                 }
                 else if (i == 2)
                 {
                     product = BuildEntity(PromotionType.PayQuantityMinusOne);
-                    promotionDescription = PromotionFakeData.GetPayQuantityMinusOneDescription(product.PromotionApplied);
+                    promotionApplied = product.PromotionApplied.Id;
                 }
                 else if (i == 3)
                 {
                     product = BuildEntity(PromotionType.PercentageDiscount);
-                    promotionDescription = PromotionFakeData.GetPercentageDiscountDescription(product.PromotionApplied);
+                    promotionApplied = product.PromotionApplied.Id;
                 }
                 else
                 {
                     product = BuildEntity();
-                    promotionDescription = null;
+                    promotionApplied = null;
                 }
 
                 result.Add(new ProductListDTO(product.Id, product.Name, product.Price, product.Status.GetDescription(), 
-                    promotionDescription, product.UpdatedAt.ToString()));
+                    promotionApplied, product.UpdatedAt.ToString()));
             }
 
             return result;
