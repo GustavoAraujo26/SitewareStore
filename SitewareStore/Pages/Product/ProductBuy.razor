@@ -1,0 +1,85 @@
+﻿@page "/product/buy/{CurrentProductId}"
+
+@using SitewareStore.Domain.Enums
+
+<PageTitle>Siteware Store - Compra de produto</PageTitle>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            @if (alertControl.Key)
+            {
+                <div class="alert alert-danger" role="alert">
+                  <h5 class="text-center">
+                      <span class="oi oi-warning" aria-hidden="true"></span> Ocorreu um erro
+                  </h5>
+                  <hr/>
+                  <h6 class="text-center">@alertControl.Value</h6>
+                </div>
+            }
+
+            <h3>Compra de produto</h3>
+            <hr/>
+
+            @if (product != null)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <span class="oi oi-box" aria-hidden="true" style="font-size: 80px;"></span>
+                                </div>
+                                <br/>
+                                <h3 class="text-center"><b>@product.Name</b></h3>
+                                <h4 class="text-center">A partir de @product.Price.ToString("C")</h4>
+                                @if (product.PromotionApplied != null)
+                                {
+                                    <div class="alert alert-warning text-center">
+                                        @product.PromotionApplied.BuildResume()
+                                    </div>   
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                  <div class="col-auto">
+                                    <label for="quantity" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" id="quantity" placeholder="Quantidade" min="1" @bind="productQuantity" @bind:after="() => CalculatePrice()">
+                                  </div>
+                                </div>
+                                <br/>
+                                @if (totalPrice != 0)
+                                {
+                                    <div class="alert alert-success text-center">
+                                        <h4>Total: @totalPrice.ToString("C")</h4>
+                                    </div>   
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="float-end">
+                            <button class="btn btn-secondary" style="margin-right: 10px;" @onclick="() => GoBack()">
+                            <span class="oi oi-arrow-thick-left" aria-hidden="true"></span> Voltar
+                        </button>
+
+                        <button class="btn btn-primary" @onclick="async () => await Buy()">
+                            @if (saving)
+                            {
+                                <div class="spinner-border" role="status">
+                                  <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="oi oi-check" aria-hidden="true"></span>    
+                            }
+                            Salvar
+                        </button>
+                        </div>
+                    </div>
+                </div>    
+            }
+        </div>
+    </div>
+</div>

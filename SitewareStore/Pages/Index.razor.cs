@@ -59,5 +59,8 @@ namespace SitewareStore.Pages
 
             StateHasChanged();
         }
+
+        private void GoBuy(Guid productId) =>
+            Navigator.NavigateTo($"/product/buy/{productId}");
     }
 }

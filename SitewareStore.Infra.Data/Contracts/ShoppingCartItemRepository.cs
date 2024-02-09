@@ -66,7 +66,7 @@ namespace SitewareStore.Infra.Data.Contracts
             var container = new Tuple<Guid, List<ShoppingCartItem>>(cartId, itemList);
             var cartItemModelList = mapper.Map<List<ShoppingCartItemModel>>(container);
 
-            foreach (var item in itemList)
+            foreach (var item in cartItemModelList)
             {
                 var sql = ShoppingCartItemSql.Insert;
 
