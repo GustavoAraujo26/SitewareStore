@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceTests\ShoppingCart\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SitewareStore.Domain\SitewareStore.Domain.csproj" />
     <ProjectReference Include="..\SitewareStore.Infra.CrossCutting\SitewareStore.Infra.CrossCutting.csproj" />
     <ProjectReference Include="..\SitewareStore.Service\SitewareStore.Service.csproj" />

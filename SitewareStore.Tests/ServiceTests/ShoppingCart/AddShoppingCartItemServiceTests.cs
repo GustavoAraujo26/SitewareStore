@@ -2,9 +2,7 @@
 using SitewareStore.Tests.Mocks;
 using SitewareStore.Infra.CrossCutting.Extensions;
 using SitewareStore.Tests.Helpers;
-using SitewareStore.Domain.Services.Promotion;
 using SitewareStore.Domain.Requests;
-using SitewareStore.Domain.Enums;
 using SitewareStore.Tests.Mock;
 using SitewareStore.Domain.Services.ShoppingCart;
 
