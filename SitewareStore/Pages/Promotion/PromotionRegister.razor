@@ -40,10 +40,6 @@ else
                     }
 
                     <div class="mb-3">
-                      <label for="observation" class="form-label">Observação</label>
-                      <textarea class="form-control" id="observation" rows="3" @bind="SaveRequest.Observation" disabled="@blockEdit"></textarea>
-                    </div>
-                    <div class="mb-3">
                       <label for="observation" class="form-label">Tipo</label>
                       <select class="form-select" id="promotion-type" @bind="typeSelected" @bind:after="OnTypeChange" disabled="@blockEdit">
                             <option value="0">Selecione uma das opções</option>
@@ -78,6 +74,11 @@ else
                           <input type="number" class="form-control" id="percentage" @bind="SaveRequest.Percentage" step=".01" min="0" disabled="@blockEdit">
                         </div>
                     }
+
+                    <div class="mb-3">
+                      <label for="observation" class="form-label">Observação</label>
+                      <textarea class="form-control" id="observation" rows="3" @bind="SaveRequest.Observation" disabled="@blockEdit"></textarea>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="float-end">
